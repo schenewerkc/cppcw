@@ -1,8 +1,9 @@
 class fraction {
 public:
 	fraction();
+	fraction(int);
 	fraction(int,int);
-	int numberator() const;
+	int numerator() const;
 	int denominator() const;
 
 	bool operator==(const fraction&) const;
@@ -17,8 +18,8 @@ public:
 	fraction &operator/(const fraction&);
 
 private:
-	int _numberator;
-	int _denominotor;
+	int _numerator;
+	int _denominator;
 	
 	void simplify();
 };
