@@ -13,6 +13,7 @@ public:
 	const std::vector<double> & get_data() const;
 	void set_data (const std::vector<double>&);
 	void print(std::ostream&);
+	void read(std::istream&);
 
 
 	//Statistical Functions
@@ -29,6 +30,6 @@ public:
 
 // Overload << and >> operators for reading and printing
 std::ostream& operator<<(std::ostream&, const sample&);
-std::istream& operator>>(std::ostream&,sample&);
+std::istream& operator>>(std::istream&,sample&);
 
 #endif // SAMPLE
