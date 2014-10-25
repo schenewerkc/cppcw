@@ -1,78 +1,102 @@
 #include "sample.h"
 #include <cmath>
 
-sample::sample (std::vector<double> items) {
-	samples = items;
+using namespace std;
+
+sample::sample (const vector<double> &items) : samples(items) {
+	sort (samples.begin(), samples.end());
 }
 
 double sample::minimum () {
-	double min=samples[0];
-	for (int i=0;i<samples.size(); ++i) {
-		if (samples[i]<min) {
-			min = samples[i];
-		}
-		else{}
+	// double min=samples[0];
+	// for (int i=0;i<samples.size(); ++i) {
+	// 	if (samples[i]<min) {
+	// 		min = samples[i];
+	// 	}
+	// 	else{}
+	// }
+	// return min;
+	if(samples.empty()){
+		return 0;
 	}
-	return min;
+	return *samples.begin();
 }
 double sample::maximum () {
-	double max=samples[0];
-	for (int i=0;i<samples.size(); ++i) {
-		if (samples[i]>max) {
-			max = samples[i];
-		}
-		else{}
+	// double max=samples[0];
+	// for (int i=0;i<samples.size(); ++i) {
+	// 	if (samples[i]>max) {
+	// 		max = samples[i];
+	// 	}
+	// 	else{}
+	// }
+	// return max;
+	if(samples.empty()){
+		return 0;
 	}
-	return max;
+	if(samples.size() == 1){
+		return samples[0];
+	}
+	return *(samples.end()-1);
 }
 double sample::range() {
-	double range = this->maximum() - this->minimum();
-	return range;
+	return this->maximum() - this->minimum();
+	// return range;
 }
 double sample::midrange() {
-	double midrange = (this->maximum() - this->minimum())/2;
-	return midrange;
+	return (this->maximum() - this->minimum())/2;
+	// return midrange;
 }
 double sample::mean () {
 	//Add all values
 	double sum = 0;
-	for (int i=0;i<samples.size(); ++i) {
-		sum = sum + samples[i];
+	for (vector<double>::const_iterator i = samples.cbegin(); i != samples.cend(); ++i) {
+		sum = sum + *i;
 	}
 
 	//Divide the number of values by the number of items
-	double mean = sum / samples.size();
-	return mean;
+	return sum / samples.size();
+	// return mean;
 }
 double sample::variance () {
-	std::vector<double> variances;
-	double mean = this->mean();
+	// std::vector<double> variances;
+	// double mean = this->mean();
 
-	for (int i=0; i<samples.size(); ++i) {
-		//Compute the difference between the value and the mean
-		variances.push_back(samples[i] - mean);
-		//Square the difference
-		variances[i] = pow(variances [i],2);
+	// for (int i=0; i<samples.size(); ++i) {
+	// 	//Compute the difference between the value and the mean
+	// 	variances.push_back(samples[i] - mean);
+	// 	//Square the difference
+	// 	variances[i] = pow(variances [i],2);
+	// }
+	// //Average the squared values in the variances vector
+	// double sum = 0;
+
+	// for (int j=0; j<variances.size(); ++j) {
+	// 	sum = sum + variances [j];
+	// }
+	// double variance = sum / variances.size();
+	// return variance;
+	if(samples.empty()){
+		return 0;
 	}
-	//Average the squared values in the variances vector
+
 	double sum = 0;
-
-	for (int j=0; j<variances.size(); ++j) {
-		sum = sum + variances [j];
+	int num = samples.size();
+	for(vector<double>::const_iterator i = samples.begin(); i != samples.end(); ++i){
+		sum += (pow(*i - mean(),2))/num;
 	}
-	double variance = sum / variances.size();
-	return variance;
+	return sum;
+
 }
 double sample::std_deviation () {
-	double std = sqrt(this->variance());
-	return std;
+	return sqrt(this->variance());
+	// return std;
 }
 double sample::median() {
-	std::sort (samples.begin(), samples.end());
+	// std::sort (samples.begin(), samples.end());
 	double median;
 	if (samples.size() % 2 == 0) {
 		//The number of items is even
-		int index = samples.size()/2;
+		vector<double>::size_type index = samples.size()/2;
 		median = (samples[index] + samples[index+1])/2;
 	}
 	else {
