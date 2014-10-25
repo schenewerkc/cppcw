@@ -1,10 +1,15 @@
 #include "sample.h"
 #include <cmath>
 
+//Constructor Implementation
 sample::sample (std::vector<double> items) {
 	samples = items;
 }
 
+//Implement operator overloading
+
+
+//Implement statistical functions
 double sample::minimum () {
 	double min=samples[0];
 	for (int i=0;i<samples.size(); ++i) {
@@ -84,6 +89,7 @@ double sample::median() {
 }
 
 int main () {
+	//Test Code
 	std::vector<double> vd;
 	vd.push_back(6.0);
 	vd.push_back(4.3);
