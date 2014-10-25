@@ -1,5 +1,5 @@
 #ifndef SAMPLE
-#defile SAMPLE
+#define SAMPLE
 
 #include <iostream>
 #include <vector>
