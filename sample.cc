@@ -7,6 +7,22 @@ sample::sample (const vector<double> &items) : samples(items) {
 	sort (samples.begin(), samples.end());
 }
 
+const vector<double>& sample::get_data() const{
+	return samples;
+}
+void sample::set_data (const std::vector<double>& data){
+	samples = data;
+	sort (samples.begin(), samples.end());
+}
+
+void sample::print(ostream &os){
+	os << "< " << samples.size()  << ": ";
+	for(vector<double>::const_iterator i = samples.begin(); i != samples.end(); ++i){
+		os << *i << " ";
+	}
+	os << '>';
+}
+
 double sample::minimum () {
 	// double min=samples[0];
 	// for (int i=0;i<samples.size(); ++i) {
@@ -48,9 +64,12 @@ double sample::midrange() {
 }
 double sample::mean () {
 	//Add all values
+	if(samples.empty()){
+		return 0;
+	}
 	double sum = 0;
 	for (vector<double>::const_iterator i = samples.cbegin(); i != samples.cend(); ++i) {
-		sum = sum + *i;
+		sum += *i;
 	}
 
 	//Divide the number of values by the number of items
@@ -93,6 +112,9 @@ double sample::std_deviation () {
 }
 double sample::median() {
 	// std::sort (samples.begin(), samples.end());
+	if(samples.empty()){
+		return 0;
+	}
 	double median;
 	if (samples.size() % 2 == 0) {
 		//The number of items is even
@@ -105,6 +127,11 @@ double sample::median() {
 	}
 
 	return median;
+}
+// Free functions
+ostream& operator<<(ostream &os,sample &s){
+	s.print(os);
+	return os;
 }
 
 int main () {
@@ -120,5 +147,18 @@ int main () {
 	std::cout << s.midrange() << '\n' << s.mean() <<'\n';
 	std::cout << s.variance() << '\n' << s.std_deviation() << '\n';
 	std::cout << s.median() <<'\n';
-
+	std::vector<double> vd3 = s.get_data();
+	std::vector<double> vd2;
+	s.set_data(vd2);
+	std::cout << s.minimum()<< '\n' << s.maximum() << '\n' << s.range() << '\n';
+	std::cout << s.midrange() << '\n' << s.mean() <<'\n';
+	std::cout << s.variance() << '\n' << s.std_deviation() << '\n';
+	std::cout << s.median() <<'\n';
+	s.set_data(vd3);
+	std::cout << s.minimum()<< '\n' << s.maximum() << '\n' << s.range() << '\n';
+	std::cout << s.midrange() << '\n' << s.mean() <<'\n';
+	std::cout << s.variance() << '\n' << s.std_deviation() << '\n';
+	std::cout << s.median() <<'\n';
+	std::cout <<  s << '\n';
+	
 }

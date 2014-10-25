@@ -10,12 +10,10 @@ public:
 	sample (const std::vector<double>&);
 
 	//Get and Set the data vector
-	const std::vector<double> & getdata();
-	void setdata (const std::vector<double>&);
+	const std::vector<double> & get_data() const;
+	void set_data (const std::vector<double>&);
+	void print(std::ostream&);
 
-	//Overload << and >> operators for reading and printing
-	std::ostream& operator<<(const sample&);
-	std::istream& operator>>(sample&);
 
 	//Statistical Functions
 	double minimum();
@@ -28,5 +26,9 @@ public:
 	double median();
 
 };
+
+// Overload << and >> operators for reading and printing
+std::ostream& operator<<(std::ostream&, const sample&);
+std::istream& operator>>(std::ostream&,sample&);
 
 #endif // SAMPLE
