@@ -1,3 +1,6 @@
+#ifndef SAMPLE
+#defile SAMPLE
+
 #include <iostream>
 #include <vector>
 
@@ -26,3 +29,5 @@ public:
 
 
 };
+
+#endif // SAMPLE
