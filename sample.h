@@ -12,9 +12,8 @@ public:
 	//Get and Set the data vector
 	const std::vector<double> & get_data() const;
 	void set_data (const std::vector<double>&);
-	void print(std::ostream&);
+	void print(std::ostream&) const;
 	void read(std::istream&);
-
 
 	//Statistical Functions
 	double minimum();
