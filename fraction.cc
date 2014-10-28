@@ -67,10 +67,6 @@ fraction operator*(fraction a, fraction b) { return a*=b; }
 fraction operator*(int a, fraction b) { return fraction(a)*=b; }
 fraction operator*(fraction a, int b) { return fraction(b)*=a; }
 
-int main() {
-	return 0;
-}
-
 
 
 
