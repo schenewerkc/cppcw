@@ -3,6 +3,8 @@
 
 using namespace std;
 
+sample::sample() {}
+
 sample::sample (const vector<double> &items) : samples(items) {
 	sort (samples.begin(), samples.end());
 }
@@ -25,7 +27,32 @@ void sample::print(ostream &os) const {
 }
 
 void sample::read(istream &is){
-	//TODO
+
+        char begin, end, sep = 0;
+        double sample = 0;
+        uint count = 0;
+
+        if(!is){
+                return;
+        }
+
+        is >> begin >> count >> sep;
+
+        if(begin != '<' || sep != ':'){
+                is.setstate(ios_base::badbit);
+                return;
+        }
+
+        while (is >> sample && count > 0){
+                samples.push_back(sample);
+                --count;
+        }
+        is.clear();
+        sort (samples.begin(), samples.end());
+        is >> end;
+        if(end != '>'){
+                is.setstate(ios_base::badbit);
+        }
 }
 
 double sample::minimum () {
@@ -94,8 +121,7 @@ double sample::median() {
 		//The number of items is even
 		vector<double>::size_type index = samples.size()/2;
 		median = (samples[index] + samples[index+1])/2;
-	}
-	else {
+	} else {
 		//The number of items is odd
 		median = samples[((samples.size() + 1)/2)-1];
 	}

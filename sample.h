@@ -7,6 +7,7 @@
 class sample {
 	std::vector<double> samples;
 public:
+        sample ();
 	sample (const std::vector<double>&);
 
 	//Get and Set the data vector
