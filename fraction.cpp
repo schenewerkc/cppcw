@@ -40,6 +40,7 @@ fraction& fraction::operator+=(const fraction &o) {
  	_numerator = (_numerator* (lcd/_denominator)) + (o.numerator() * (lcd/o.denominator()));
 	_denominator = lcd;			
 	//simplify?
+	return *this;
 }
 
 fraction& fraction::operator-=(const fraction &o) {
@@ -47,11 +48,13 @@ fraction& fraction::operator-=(const fraction &o) {
 	_numerator = (_numerator* (lcd/_denominator)) - (o.numerator() * (lcd/o.denominator()));
 	_denominator = lcd;
 	//simplify?
+	return *this;
 }
 
 fraction& fraction::operator*=(const fraction &o) {
 	_numerator = _numerator*o.numerator();
 	_denominator = _denominator*o.denominator();
+	return *this;
 }
 
 fraction operator+(fraction a, fraction b) {
@@ -76,5 +79,4 @@ fraction operator*(fraction a, fraction b) { return a*=b; }
 fraction operator*(int a, fraction b) { return fraction(a)*=b; }
 fraction operator*(fraction a, int b) { return fraction(b)*=a; }
 
-fractoin c = a + b
 
