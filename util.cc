@@ -8,5 +8,5 @@ int gcd(int n, int m){
 }
 
 int lcm(int n, int m){
-	return abs(m * (n/gcd(n,m));
+	return abs(m * (n/gcd(n,m)));
 }	
