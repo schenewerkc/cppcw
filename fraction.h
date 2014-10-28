@@ -1,3 +1,6 @@
+#ifndef FRACTION
+#define FRACTION
+
 class fraction {
 public:
 	fraction();
@@ -24,4 +27,4 @@ private:
 	void simplify();
 };
 
-
+#endif // FRACTION

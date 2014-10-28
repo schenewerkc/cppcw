@@ -34,7 +34,6 @@ bool fraction::operator<(const fraction &o) const {
 }
 
 
-
 fraction& fraction::operator+=(const fraction &o) {
 	int lcd = lcm(o.denominator(), denominator());
  	_numerator = (_numerator* (lcd/_denominator)) + (o.numerator() * (lcd/o.denominator()));
