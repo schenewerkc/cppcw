@@ -3,9 +3,11 @@
 
 #include <iostream>
 #include <vector>
+#include <regex>
 
 class sample {
-	std::vector<double> samples;
+	std::vector<double> _samples;
+        static const std::regex _format;
 public:
         sample ();
 	sample (const std::vector<double>&);
