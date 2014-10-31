@@ -9,7 +9,10 @@ using namespace std;
 
 const regex sample::_format(" * [0-9]+ *: *([0-9]+\\.{0,1}[0-9]* )+");
 
-sample::sample() {}
+sample::sample() 
+{
+
+}
 
 sample::sample (const vector<double> &items) : 
                 _samples(items)
@@ -17,30 +20,34 @@ sample::sample (const vector<double> &items) :
 	sort (_samples.begin(), _samples.end());
 }
 
-const vector<double>& sample::get_data() const{
+const vector<double>& sample::get_data() const
+{
 	return _samples;
 }
 
-void sample::set_data (const std::vector<double>& data){
+void sample::set_data (const std::vector<double>& data)
+{
 	_samples = data;
 	sort (_samples.begin(), _samples.end());
 }
 
-void sample::print(ostream &os) const {
+void sample::print(ostream &os) const 
+{
 	os << "< " << _samples.size()  << ": ";
-	for(vector<double>::const_iterator i = _samples.cbegin(); i != _samples.cend(); ++i){
+	for(auto i = _samples.cbegin(); i != _samples.cend(); ++i){
 		os << *i << " ";
 	}
 	os << '>';
 }
 
-void sample::read(istream &is){
+void sample::read(istream &is)
+{
         string buffer;
         string samples;
 
         if(getline(is,buffer,'<') && getline(is,samples,'>')){
                 if(!regex_match(samples,sample::_format)){
-                        throw runtime_error("bad format");
+                        throw runtime_error("bad format given");
                 }
 
                 stringstream ss(samples);
@@ -55,18 +62,18 @@ void sample::read(istream &is){
                         --count;
                 }
         }
-
-
 }
 
-double sample::minimum () {
+double sample::minimum () 
+{
 	if(_samples.empty()){
 		return 0;
 	}
 	return *_samples.begin();
 }
 
-double sample::maximum () {
+double sample::maximum () 
+{
 	if(_samples.empty()){
 		return 0;
 	}
@@ -76,21 +83,24 @@ double sample::maximum () {
 	return *(_samples.end()-1);
 }
 
-double sample::range() {
+double sample::range() 
+{
 	return this->maximum() - this->minimum();
 }
 
-double sample::midrange() {
+double sample::midrange() 
+{
 	return (this->maximum() - this->minimum())/2;
 }
 
-double sample::mean () {
+double sample::mean () 
+{
 	//Add all values
 	if(_samples.empty()){
 		return 0;
 	}
 	double sum = 0;
-	for (vector<double>::const_iterator i = _samples.cbegin(); i != _samples.cend(); ++i) {
+	for (auto i = _samples.cbegin(); i != _samples.cend(); ++i) {
 		sum += *i;
 	}
 
@@ -98,32 +108,35 @@ double sample::mean () {
 	return sum / _samples.size();
 }
 
-double sample::variance () {
+double sample::variance () 
+{
 	if(_samples.empty()){
 		return 0;
 	}
 
 	double sum = 0;
 	int num = _samples.size();
-	for(vector<double>::const_iterator i = _samples.begin(); i != _samples.end(); ++i){
+	for(auto i = _samples.begin(); i != _samples.end(); ++i){
 		sum += (pow(*i - mean(),2))/num;
 	}
 	return sum;
 
 }
 
-double sample::std_deviation () {
+double sample::std_deviation () 
+{
 	return sqrt(this->variance());
 }
 
-double sample::median() {
+double sample::median() 
+{
 	if(_samples.empty()){
 		return 0;
 	}
 	double median;
 	if (_samples.size() % 2 == 0) {
 		//The number of items is even
-		vector<double>::size_type index = _samples.size()/2;
+		auto index = _samples.size()/2;
 		median = (_samples[index] + _samples[index+1])/2;
 	} else {
 		//The number of items is odd
@@ -133,12 +146,14 @@ double sample::median() {
 	return median;
 }
 // Free functions
-ostream& operator<<(ostream &os, const sample &s){
+ostream& operator<<(ostream &os, const sample &s)
+{
 	s.print(os);
 	return os;
 }
 
-istream& operator>>(istream &is,sample &s){
+istream& operator>>(istream &is,sample &s)
+{
 	s.read(is);
 	return is;
 }
