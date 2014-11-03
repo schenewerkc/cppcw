@@ -11,7 +11,6 @@ const regex sample::_format(" * [0-9]+ *: *([0-9]+\\.{0,1}[0-9]* )+");
 
 sample::sample() 
 {
-
 }
 
 sample::sample (const vector<double> &items) : 
@@ -46,6 +45,7 @@ void sample::read(istream &is)
         string samples;
 
         if(getline(is,buffer,'<') && getline(is,samples,'>')){
+                buffer.clear();
                 if(!regex_match(samples,sample::_format)){
                         throw runtime_error("bad format given");
                 }
@@ -61,6 +61,7 @@ void sample::read(istream &is)
                         _samples.push_back(sample);
                         --count;
                 }
+                sort (_samples.begin(), _samples.end());
         }
 }
 

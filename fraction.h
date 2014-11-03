@@ -16,9 +16,6 @@ public:
 	fraction &operator-=(const fraction&);
 	fraction &operator*=(const fraction&);
 	fraction &operator/=(const fraction&);
-	fraction &operator+(const fraction&);
-	fraction &operator-(const fraction&);
-	fraction &operator/(const fraction&);
 
 private:
 	int _numerator;
@@ -26,5 +23,18 @@ private:
 	
 	void simplify();
 };
+
+fraction operator+(fraction, fraction);
+fraction operator+(int, fraction);
+fraction operator+(fraction,int);
+fraction operator-(fraction, fraction);
+fraction operator-(int, fraction);
+fraction operator-(fraction,int);
+fraction operator*(fraction, fraction);
+fraction operator*(int, fraction);
+fraction operator*(fraction, int);
+fraction operator/(fraction, fraction);
+fraction operator/(int, fraction);
+fraction operator/(fraction,int);
 
 #endif // FRACTION
