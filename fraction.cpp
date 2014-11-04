@@ -2,8 +2,6 @@
 #include "util.h"
 #include <utility>
 
-using namespace std::rel_ops;
-
 fraction::fraction() : _numerator(0), _denominator(1) {}
 
 fraction::fraction(int n) : _numerator(n), _denominator(1) {}

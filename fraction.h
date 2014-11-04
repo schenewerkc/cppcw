@@ -20,7 +20,6 @@ public:
 private:
 	int _numerator;
 	int _denominator;
-	
 	void simplify();
 };
 

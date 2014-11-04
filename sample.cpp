@@ -14,7 +14,7 @@ sample::sample()
 }
 
 sample::sample (const vector<double> &items) : 
-                _samples(items)
+_samples(items)
 {
 	sort (_samples.begin(), _samples.end());
 }
@@ -41,31 +41,32 @@ void sample::print(ostream &os) const
 
 void sample::read(istream &is)
 {
-        string buffer;
-        string samples;
+	string buffer;
+	string samples;
 
-        if(getline(is,buffer,'<') && getline(is,samples,'>')){
-                buffer.clear();
-                if(!regex_match(samples,sample::_format)){
-                        throw runtime_error("bad format given");
-                }
+	if(getline(is,buffer,'<') && getline(is,samples,'>')){
+		buffer.clear();
+		if(!regex_match(samples,sample::_format)){
+			is.setstate(ios_base::badbit);
+			return;
+		}
 
-                stringstream ss(samples);
-                int count = 0;
-                char sep;
-                ss >> count >> sep;
+		stringstream ss(samples);
+		int count = 0;
+		char sep;
+		ss >> count >> sep;
 
-                while (count > 0){
-                        double sample;
-                        ss >> sample;
-                        _samples.push_back(sample);
-                        --count;
-                }
-                sort (_samples.begin(), _samples.end());
-        }
+		while (count > 0){
+			double sample;
+			ss >> sample;
+			_samples.push_back(sample);
+			--count;
+		}
+		sort (_samples.begin(), _samples.end());
+	}
 }
 
-double sample::minimum () 
+double sample::minimum () const 
 {
 	if(_samples.empty()){
 		return 0;
@@ -73,7 +74,7 @@ double sample::minimum ()
 	return *_samples.begin();
 }
 
-double sample::maximum () 
+double sample::maximum () const
 {
 	if(_samples.empty()){
 		return 0;
@@ -84,17 +85,17 @@ double sample::maximum ()
 	return *(_samples.end()-1);
 }
 
-double sample::range() 
+double sample::range() const
 {
 	return this->maximum() - this->minimum();
 }
 
-double sample::midrange() 
+double sample::midrange() const
 {
-	return (this->maximum() - this->minimum())/2;
+	return (this->maximum() + this->minimum())/2;
 }
 
-double sample::mean () 
+double sample::mean () const
 {
 	//Add all values
 	if(_samples.empty()){
@@ -109,7 +110,7 @@ double sample::mean ()
 	return sum / _samples.size();
 }
 
-double sample::variance () 
+double sample::variance () const
 {
 	if(_samples.empty()){
 		return 0;
@@ -124,12 +125,12 @@ double sample::variance ()
 
 }
 
-double sample::std_deviation () 
+double sample::std_deviation () const
 {
 	return sqrt(this->variance());
 }
 
-double sample::median() 
+double sample::median() const
 {
 	if(_samples.empty()){
 		return 0;
@@ -137,11 +138,11 @@ double sample::median()
 	double median;
 	if (_samples.size() % 2 == 0) {
 		//The number of items is even
-		auto index = _samples.size()/2;
-		median = (_samples[index] + _samples[index+1])/2;
+		auto N = _samples.size()/2;
+		median = (_samples[N-1] + _samples[N])/2;
 	} else {
 		//The number of items is odd
-		median = _samples[((_samples.size() + 1)/2)-1];
+		median = _samples[static_cast<int>(_samples.size()/2)];
 	}
 
 	return median;

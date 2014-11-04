@@ -7,9 +7,9 @@
 
 class sample {
 	std::vector<double> _samples;
-        static const std::regex _format;
+	static const std::regex _format;
 public:
-        sample ();
+	sample ();
 	sample (const std::vector<double>&);
 
 	//Get and Set the data vector
@@ -19,14 +19,14 @@ public:
 	void read(std::istream&);
 
 	//Statistical Functions
-	double minimum();
-	double maximum();
-	double range();
-	double midrange();
-	double mean();
-	double variance();
-	double std_deviation();
-	double median();
+	double minimum() const;
+	double maximum() const;
+	double range() const;
+	double midrange() const;
+	double mean() const;
+	double variance() const;
+	double std_deviation() const;
+	double median() const;
 
 };
 
