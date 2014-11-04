@@ -36,8 +36,6 @@ int main () {
         c = a / 2;
         assert(c.numerator() == 1 && c.denominator() == 6);
 
-	cout << "Cout test: " << a << '\n';
-
         cout << "All fraction tests passed" << endl;
 
         // Sample tests
