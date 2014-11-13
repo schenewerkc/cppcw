@@ -1,7 +1,7 @@
 CXX=g++
 CXXFLAGS=-Wall -pedantic -ansi -g -std=c++0x
 LDFLAGS= 
-SOURCES=sample.cpp main.cpp
+SOURCES=fraction.cpp util.cpp sample.cpp main.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=coursework
 

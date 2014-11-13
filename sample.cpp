@@ -1,114 +1,161 @@
 #include "sample.h"
 #include <cmath>
+#include <string>
+#include <sstream>
+#include <istream>
+#include <stdexcept>
 
 using namespace std;
 
-sample::sample (const vector<double> &items) : samples(items) {
-	sort (samples.begin(), samples.end());
+const regex sample::_format(" * [0-9]+ *: *([0-9]+\\.{0,1}[0-9]* )+");
+
+sample::sample() 
+{
 }
 
-const vector<double>& sample::get_data() const{
-	return samples;
+sample::sample (const vector<double> &items) : 
+_samples(items)
+{
+	sort (_samples.begin(), _samples.end());
 }
 
-void sample::set_data (const std::vector<double>& data){
-	samples = data;
-	sort (samples.begin(), samples.end());
+const vector<double>& sample::get_data() const
+{
+	return _samples;
 }
 
-void sample::print(ostream &os) const {
-	os << "< " << samples.size()  << ": ";
-	for(vector<double>::const_iterator i = samples.cbegin(); i != samples.cend(); ++i){
+void sample::set_data (const std::vector<double>& data)
+{
+	_samples = data;
+	sort (_samples.begin(), _samples.end());
+}
+
+void sample::print(ostream &os) const 
+{
+	os << "< " << _samples.size()  << ": ";
+	for(auto i = _samples.cbegin(); i != _samples.cend(); ++i){
 		os << *i << " ";
 	}
 	os << '>';
 }
 
-void sample::read(istream &is){
-	//TODO
+void sample::read(istream &is)
+{
+	string buffer;
+	string samples;
+
+	if(getline(is,buffer,'<') && getline(is,samples,'>')){
+		buffer.clear();
+		if(!regex_match(samples,sample::_format)){
+			is.setstate(ios_base::badbit);
+			return;
+		}
+
+		stringstream ss(samples);
+		int count = 0;
+		char sep;
+		ss >> count >> sep;
+
+		while (count > 0){
+			double sample;
+			ss >> sample;
+			_samples.push_back(sample);
+			--count;
+		}
+		sort (_samples.begin(), _samples.end());
+	}
 }
 
-double sample::minimum () {
-	if(samples.empty()){
+double sample::minimum () const 
+{
+	if(_samples.empty()){
 		return 0;
 	}
-	return *samples.begin();
+	return *_samples.begin();
 }
 
-double sample::maximum () {
-	if(samples.empty()){
+double sample::maximum () const
+{
+	if(_samples.empty()){
 		return 0;
 	}
-	if(samples.size() == 1){
-		return samples[0];
+	if(_samples.size() == 1){
+		return _samples[0];
 	}
-	return *(samples.end()-1);
+	return *(_samples.end()-1);
 }
 
-double sample::range() {
+double sample::range() const
+{
 	return this->maximum() - this->minimum();
 }
 
-double sample::midrange() {
-	return (this->maximum() - this->minimum())/2;
+double sample::midrange() const
+{
+	return (this->maximum() + this->minimum())/2;
 }
 
-double sample::mean () {
+double sample::mean () const
+{
 	//Add all values
-	if(samples.empty()){
+	if(_samples.empty()){
 		return 0;
 	}
 	double sum = 0;
-	for (vector<double>::const_iterator i = samples.cbegin(); i != samples.cend(); ++i) {
+	for (auto i = _samples.cbegin(); i != _samples.cend(); ++i) {
 		sum += *i;
 	}
 
 	//Divide the number of values by the number of items
-	return sum / samples.size();
+	return sum / _samples.size();
 }
 
-double sample::variance () {
-	if(samples.empty()){
+double sample::variance () const
+{
+	if(_samples.empty()){
 		return 0;
 	}
 
 	double sum = 0;
-	int num = samples.size();
-	for(vector<double>::const_iterator i = samples.begin(); i != samples.end(); ++i){
+	int num = _samples.size();
+	for(auto i = _samples.begin(); i != _samples.end(); ++i){
 		sum += (pow(*i - mean(),2))/num;
 	}
 	return sum;
 
 }
 
-double sample::std_deviation () {
+double sample::std_deviation () const
+{
 	return sqrt(this->variance());
 }
 
-double sample::median() {
-	if(samples.empty()){
+double sample::median() const
+{
+	if(_samples.empty()){
 		return 0;
 	}
 	double median;
-	if (samples.size() % 2 == 0) {
+	if (_samples.size() % 2 == 0) {
 		//The number of items is even
-		vector<double>::size_type index = samples.size()/2;
-		median = (samples[index] + samples[index+1])/2;
-	}
-	else {
+		auto N = _samples.size()/2;
+		median = (_samples[N-1] + _samples[N])/2;
+	} else {
 		//The number of items is odd
-		median = samples[((samples.size() + 1)/2)-1];
+		median = _samples[static_cast<int>(_samples.size()/2)];
 	}
 
 	return median;
 }
 // Free functions
-ostream& operator<<(ostream &os, const sample &s){
+ostream& operator<<(ostream &os, const sample &s)
+{
 	s.print(os);
 	return os;
 }
 
-istream& operator>>(istream &is,sample &s){
+istream& operator>>(istream &is,sample &s)
+{
 	s.read(is);
 	return is;
 }
