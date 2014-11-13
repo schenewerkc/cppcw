@@ -1,6 +1,7 @@
 #include "fraction.h"
 #include "util.h"
 #include <utility>
+#include <iostream>
 
 fraction::fraction() : _numerator(0), _denominator(1) {}
 
@@ -90,5 +91,3 @@ fraction operator*(fraction a, int b) { return fraction(b) *= a; }
 fraction operator/(fraction a, fraction b) { return a/=b; }
 fraction operator/(int a, fraction b) { return fraction(a)/=b; }
 fraction operator/(fraction a, int b) { return a/=fraction(b); }
-
-
