@@ -36,7 +36,6 @@ int main () {
         c = a / 2;
         assert(c.numerator() == 1 && c.denominator() == 6);
 
-
         cout << "All fraction tests passed" << endl;
 
         // Sample tests
@@ -68,5 +67,5 @@ int main () {
                 << "Median: " << s.median() << endl << "Mean: " << s.mean() << endl 
                 << "Variance: " << s.variance() << endl << "Std. deviation: " << s.std_deviation() << endl;
         }
-
+	return 0;
 }

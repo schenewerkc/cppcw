@@ -1,6 +1,10 @@
 #ifndef FRACTION
 #define FRACTION
 
+#include <iostream>
+
+using namespace std;
+
 class fraction {
 public:
 	fraction();
@@ -35,5 +39,8 @@ fraction operator*(fraction, int);
 fraction operator/(fraction, fraction);
 fraction operator/(int, fraction);
 fraction operator/(fraction,int);
+
+ostream& operator<<( ostream &os, const fraction &f);// format: n/m 
+istream& operator>>( istream &os, fraction &f);
 
 #endif // FRACTION
