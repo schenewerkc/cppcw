@@ -11,8 +11,6 @@ using namespace std::rel_ops;
 
 
 int main () {
-<<<<<<< HEAD
-<<<<<<< HEAD
 	std::vector<double> vd;
 	vd.push_back(6.0);
 	vd.push_back(4.3);
@@ -39,9 +37,6 @@ int main () {
 	std::cout << s.median() <<'\n';
 	std::cout <<  s << '\n';
 	
-=======
-=======
->>>>>>> 75a880f723627edb1a2451eaffeba73b41cc5040
         //Fraction Tests
         fraction a(1,3);
         fraction aa(1,3);
@@ -99,9 +94,4 @@ int main () {
                 << "Median: " << s.median() << endl << "Mean: " << s.mean() << endl 
                 << "Variance: " << s.variance() << endl << "Std. deviation: " << s.std_deviation() << endl;
         }
-
-<<<<<<< HEAD
->>>>>>> 064e3660b03d6ca663403554ad4fde164279ff2d
-=======
->>>>>>> 75a880f723627edb1a2451eaffeba73b41cc5040
 }
