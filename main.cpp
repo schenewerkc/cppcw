@@ -15,7 +15,7 @@ int main () {
 	std::cout << s.variance() << '\n' << s.std_deviation() << '\n';
 	std::cout << s.median() <<'\n';
 	std::vector<double> vd3 = s.get_data();
-	std::vector<double> vd2;
+	std::vector<double> vd2;q
 	s.set_data(vd2);
 	std::cout << s.minimum()<< '\n' << s.maximum() << '\n' << s.range() << '\n';
 	std::cout << s.midrange() << '\n' << s.mean() <<'\n';
