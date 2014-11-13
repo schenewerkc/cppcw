@@ -139,6 +139,7 @@ double sample::median() const
 	if (_samples.size() % 2 == 0) {
 		//The number of items is even
 		auto N = _samples.size()/2;
+		//container is indexed from 0, hence N-1...
 		median = (_samples[N-1] + _samples[N])/2;
 	} else {
 		//The number of items is odd
