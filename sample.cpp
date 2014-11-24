@@ -7,7 +7,7 @@
 
 using namespace std;
 
-const regex sample::_format(" * [0-9]+ *: *([0-9]+\\.{0,1}[0-9]* )+");
+// const regex sample::_format(" * [0-9]+ *: *([0-9]+\\.{0,1}[0-9]* )+");
 
 sample::sample() 
 {
@@ -39,31 +39,52 @@ void sample::print(ostream &os) const
 	os << '>';
 }
 
+// regex read
+// void sample::read(istream &is)
+// {
+// 	string buffer;
+// 	string samples;
+
+// 	if(getline(is,buffer,'<') && getline(is,samples,'>')){
+// 		buffer.clear();
+// 		if(!regex_match(samples,sample::_format)){
+// 			is.setstate(ios_base::badbit);
+// 			return;
+// 		}
+
+// 		stringstream ss(samples);
+// 		int count = 0;
+// 		char sep;
+// 		ss >> count >> sep;
+
+// 		while (count > 0){
+// 			double sample;
+// 			ss >> sample;
+// 			_samples.push_back(sample);
+// 			--count;
+// 		}
+// 		sort (_samples.begin(), _samples.end());
+// 	}
+// }
+
 void sample::read(istream &is)
 {
-	string buffer;
-	string samples;
-
-	if(getline(is,buffer,'<') && getline(is,samples,'>')){
-		buffer.clear();
-		if(!regex_match(samples,sample::_format)){
+	char left, right, sep;
+	int count = 0;
+	if(is >> left){
+		if((is >> count >> sep) && left == '<' && sep == ':'){
+			while (count > 0){
+				double s;
+				is >> s;
+				_samples.push_back(s);
+				--count;
+			}
+			is >> right;
+		} else {
 			is.setstate(ios_base::badbit);
-			return;
 		}
-
-		stringstream ss(samples);
-		int count = 0;
-		char sep;
-		ss >> count >> sep;
-
-		while (count > 0){
-			double sample;
-			ss >> sample;
-			_samples.push_back(sample);
-			--count;
-		}
-		sort (_samples.begin(), _samples.end());
-	}
+	} 
+	sort (_samples.begin(), _samples.end());
 }
 
 double sample::minimum () const 

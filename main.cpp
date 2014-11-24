@@ -40,10 +40,11 @@ int main () {
 
         // Sample tests
         
-        string testString("< 6 :7 11 2 13 3 5 >");
+        string testString("< 6 :7 11 2 13 3 5>");
         stringstream stream(testString);
         sample sam;
         stream >> sam;
+        cout << "Begining sample tests with sample:" << sam << endl;
 
         vector<double> data = sam.get_data();
         assert(data.size() == 6);
@@ -59,8 +60,10 @@ int main () {
 
         cout << "All sample tests passed" << endl;
         cout << "Enter a sample to test: " << endl;
-        sample s;
-        while (cin>>s){
+        
+        while (cin){
+                sample s;
+                cin >> s;
                 cout << s << endl
                 << "Minimum: " << s.minimum() << endl << "Maximum :" << s.maximum() << endl
                 << "Range: " << s.range() << endl << "Midrange: " << s.midrange() << endl
