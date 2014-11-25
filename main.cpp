@@ -1,5 +1,6 @@
 #include "sample.h"
 #include "fraction.h"
+#include "samplet.h"
 #include <assert.h>
 #include <vector>
 #include <sstream>
@@ -59,10 +60,40 @@ int main () {
         assert(round(sam.std_deviation() * 100000)/100000 == 4.01732);
 
         cout << "All sample tests passed" << endl;
-        cout << "Enter a sample to test: " << endl;
+ //        cout << "Enter a sample to test: " << endl;
+        
+ //        while (cin){
+ //                sample s;
+ //                cin >> s;
+ //                cout << s << endl
+ //                << "Minimum: " << s.minimum() << endl << "Maximum :" << s.maximum() << endl
+ //                << "Range: " << s.range() << endl << "Midrange: " << s.midrange() << endl
+ //                << "Median: " << s.median() << endl << "Mean: " << s.mean() << endl 
+ //                << "Variance: " << s.variance() << endl << "Std. deviation: " << s.std_deviation() << endl;
+ //        }
+	// return 0;
+
+
+        // Generic Sample Tests
+        
+        string testString2("< 6: 7/5 11/1 2/78 13/4 3/2 5/6>");
+        stringstream stream2(testString2);
+        samplet<fraction> sam2;
+        stream2 >> sam2;
+        cout << "Begining sample tests with sample:" << sam2 << endl;
+
+        cout << sam2 << endl
+                << "Minimum: " << sam2.minimum() << endl << "Maximum :" << sam2.maximum() << endl
+                << "Range: " << sam2.range() << endl << "Midrange: " << sam2.midrange() << endl
+                << "Median: " << sam2.median() << endl << "Mean: " << sam2.mean() << endl 
+                << "Variance: " << sam2.variance() << endl << "Std. deviation: " << sam2.std_deviation() << endl;
+
+        cout << "All generic sample tests passed" << endl;
+
+        cout << "Enter a sample of fractions to test: " << endl;
         
         while (cin){
-                sample s;
+                samplet<fraction> s;
                 cin >> s;
                 cout << s << endl
                 << "Minimum: " << s.minimum() << endl << "Maximum :" << s.maximum() << endl
@@ -70,5 +101,5 @@ int main () {
                 << "Median: " << s.median() << endl << "Mean: " << s.mean() << endl 
                 << "Variance: " << s.variance() << endl << "Std. deviation: " << s.std_deviation() << endl;
         }
-	return 0;
+        return 0;
 }

@@ -21,6 +21,8 @@ public:
 	fraction &operator*=(const fraction&);
 	fraction &operator/=(const fraction&);
 
+	void set(int, int);
+
 private:
 	int _numerator;
 	int _denominator;
@@ -43,4 +45,7 @@ fraction operator/(fraction,int);
 ostream& operator<<( ostream &os, const fraction &f);// format: n/m 
 istream& operator>>( istream &os, fraction &f);
 
+namespace std {
+fraction sqrt(const fraction&);
+}
 #endif // FRACTION

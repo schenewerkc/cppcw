@@ -1,5 +1,6 @@
 #include "fraction.h"
 #include "util.h"
+#include <cmath>
 #include <utility>
 #include <iostream>
 
@@ -76,6 +77,13 @@ fraction& fraction::operator/=(const fraction &o)
 	return *this;
 }
 
+void fraction::set(int num, int den)
+{
+	_numerator = num;
+	_denominator = den;
+	simplify();
+}
+
 fraction operator+(fraction a, fraction b) {return a.operator+=(b);} 
 fraction operator+(int a, fraction b) { return fraction(a) += b;} 
 fraction operator+(fraction a, int b) { return fraction(b) += a;}
@@ -96,4 +104,23 @@ fraction operator/(fraction a, int b) { return a/=fraction(b); }
 
 ostream& operator<<( ostream &os, const fraction &f) {
 	return os << f.numerator() << "/" << f.denominator();
+}
+
+istream& operator>>( istream &is, fraction &f) {
+	char sep;
+	int num, den;
+	if(is >> num){
+		if((is >> sep >> den) && sep == '/'){
+			f.set(num,den);
+		} else {
+			is.setstate(ios_base::badbit);
+		}
+	}
+	return is;
+}
+
+namespace std{
+fraction sqrt(const fraction &a){
+	return fraction(sqrt(a.numerator()), sqrt(a.denominator()));
+}
 }
