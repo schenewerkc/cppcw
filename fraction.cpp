@@ -120,7 +120,7 @@ istream& operator>>( istream &is, fraction &f) {
 }
 
 namespace std{
-fraction sqrt(const fraction &a){
-	return fraction(sqrt(a.numerator()), sqrt(a.denominator()));
-}
+	fraction sqrt(const fraction &a){
+		return fraction(sqrt(a.numerator()), sqrt(a.denominator()));
+	}
 }
