@@ -2,6 +2,7 @@
 #define SAMPLE_T_H
 
 #include "samplet.h"
+#include <algorithm>
 #include <ctgmath>
 #include <string>
 #include <sstream>
@@ -32,7 +33,6 @@ public:
     T variance() const;
     T std_deviation() const;
     T median() const;
-
 };
 
 // Overload << and >> operators for reading and printing
@@ -41,6 +41,8 @@ std::ostream& operator<<(std::ostream&, const samplet<T>&);
 template <typename T>
 std::istream& operator>>(std::istream&,samplet<T>&);
 
+
+//Implementation
 template <typename T>
 samplet<T>::samplet() 
 {
@@ -160,7 +162,6 @@ T samplet<T>::variance () const
         sum += ((*i - mean())*(*i - mean()))/num;
     }
     return sum;
-
 }
 
 template <typename T>

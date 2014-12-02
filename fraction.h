@@ -42,7 +42,8 @@ fraction operator/(fraction, fraction);
 fraction operator/(int, fraction);
 fraction operator/(fraction,int);
 
-ostream& operator<<( ostream &os, const fraction &f);// format: n/m 
+// format: n/m 
+ostream& operator<<( ostream &os, const fraction &f);
 istream& operator>>( istream &os, fraction &f);
 
 namespace std {
