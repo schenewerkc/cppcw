@@ -1,13 +1,14 @@
 CXX=g++
 CXXFLAGS=-Wall -pedantic -ansi -g -std=c++0x
 LDFLAGS= 
-SOURCES=fraction.cpp util.cpp sample.cpp sample_t_main.cpp
+SOURCES=fraction.cpp util.cpp sample.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
-EXECUTABLE=coursework
+PROGS = sample_test sample_t_test fraction_test
 
-all:  $(SOURCES) $(EXECUTABLE)
+all:  $(PROGS)
 
-$(EXECUTABLE): $(OBJECTS) 
+$(PROGS): $(OBJECTS)
+
 	$(CXX) $(LDFLAGS) $(OBJECTS) -o $@
 
 .cc:
@@ -20,5 +21,5 @@ $(EXECUTABLE): $(OBJECTS)
 	$(CXX) $(CXXFLAGS) $< -o $@
 
 clean:
-	-rm -f *.o $(EXECUTABLE)
+	-rm -f *.o $(PROGS)
 	-rm -rf *.dSYM
