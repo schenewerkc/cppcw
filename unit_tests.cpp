@@ -33,6 +33,8 @@ void test_sample(const sample &sam, uint size,
 {
     double epsilon = 0.0001;
     cout << "Sample: " << sam << " ";
+    cout << "empty " << "(" << sam.empty() << ") ";
+    assert(!sam.empty());
     vector<double> data(sam.get_data());
     cout << "size " << data.size() << "(" << size << ") ";
     assert(data.size() == size);
@@ -54,9 +56,16 @@ void test_sample(const sample &sam, uint size,
     assert(abs(sam.variance() - variance) < epsilon);
     cout << "std deviation " << sam.std_deviation() << "(" << std << ") ";
     assert(abs(sam.std_deviation() - std) < epsilon);
-    
     cout << " Passed!" << endl;
 }
+
+void test_empty_sample(const sample &sam){
+    cout << "Sample: " << sam << " ";
+    cout << "empty " << "(" << sam.empty() << ") ";
+    assert(sam.empty());
+    cout << " Passed!" << endl;
+}
+
 template <typename T>
 void test_sample_t(const samplet<T> &sam, uint size, 
     T minimum, T maximum, double range, 
@@ -65,6 +74,8 @@ void test_sample_t(const samplet<T> &sam, uint size,
 {
     double epsilon = 0.0001;
     cout << "Samplet<T>: " << sam << " ";
+    assert(!sam.empty());
+    cout << "Not empty ";
     vector<T> data(sam.get_data());
     cout << "size " << data.size() << "(" << size << ") ";
     assert(data.size() == size);
@@ -86,7 +97,14 @@ void test_sample_t(const samplet<T> &sam, uint size,
     assert(abs(sam.variance() - variance) < epsilon);
     cout << "std deviation " << sam.std_deviation() << "(" << std << ") ";
     assert(abs(sam.std_deviation() - std) < epsilon);
-    
+    cout << " Passed!" << endl;
+}
+
+template <typename T>
+void test_empty_sample_t(const samplet<T> &sam){
+    cout << "Sample: " << sam << " ";
+    cout << "empty " << "(" << sam.empty() << ") ";
+    assert(sam.empty());
     cout << " Passed!" << endl;
 }
 
@@ -114,5 +132,7 @@ int main ()
     test_sample(build_sample("< 6 :7 11 2 13 3 5>"),6,2,13,11,7.5,6,6.833333,16.1389,4.01732);
     test_sample(build_sample("<2: 1.7976931348623158e+308 1.7976931348623158e+308 >"),2,std::numeric_limits<double>::max(),std::numeric_limits<double>::max(),0,std::numeric_limits<double>::max(),std::numeric_limits<double>::max(),std::numeric_limits<double>::max(),0,0);
     test_sample_t<fraction>(build_sample_t<fraction>("< 2: 1/2 1/4 >"), 2, fraction(1,4),fraction(1,2),0.25,0.375,0.375,0.375,0.015625, 0.125);
+    test_empty_sample(build_sample(""));
+    test_empty_sample_t<fraction>(build_sample_t<fraction>(""));
     return 0;
 }

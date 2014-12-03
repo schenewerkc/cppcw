@@ -24,15 +24,19 @@ public:
     void set_data (const std::vector<T>&);
     void print(std::ostream&) const;
     void read(std::istream&);
-    //implemented empty to make it the callers responsability to to check whether the sample has values before calling min/max. 
-    //otherwise what is the minimum of an empty set?? Zero could be a real value so is misleading.
+    //Implemented empty to make it the callers responsability to to check whether the sample has values before calling min/max. 
+    //Otherwise what is the minimum of an empty set?? Zero could be a real value so is misleading.
     bool empty() const;
 
-    //calling minimum or maximum on an empty sample is undefined. Returning zero for an empty set could be missleading.
-    //call empty() first to check there are values.
+    //Calling minimum or maximum on an empty sample is undefined. Returning zero for an empty set could be missleading.
+    //Call empty() first to check there are values. This mimics behaviour in the C++ standard for std::vector and other containers.
+    //Retuning a reference of type T here as these functions request members of the data set that have the lowest and highest ordering.
+    //This keeps things as generic as possible, without losing precission.
     const T& minimum() const;
     const T& maximum() const;
     //Statistical Functions
+    //These functions return a double to keep as much precission as possible. E.g. If the template was initialised to be a sample of ints,
+    //and we returned type T, the mean of 1 and 2 would be 1. This is a loss in precission. Keeping doubles allows us to maintain the maximum possible precission.
     double range() const;
     double midrange() const;
     double mean() const;
