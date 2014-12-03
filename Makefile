@@ -1,25 +1,27 @@
 CXX=g++
-CXXFLAGS=-Wall -pedantic -ansi -g -std=c++0x
+CXXFLAGS= -Wall -pedantic -ansi -g -std=c++0x
 LDFLAGS= 
-SOURCES=fraction.cpp util.cpp sample.cpp
-OBJECTS=$(SOURCES:.cpp=.o)
-PROGS = sample_test sample_t_test fraction_test
+OBJECTS = fraction.o util.o sample.o 
+PROGS = sample_main samplet_main fraction_main unit_tests
+MAINS = $(PROGS:=.o)
+BUILD_DIR = out
 
-all:  $(PROGS)
+all: $(PROGS)
 
-$(PROGS): $(OBJECTS)
+test: $(PROGS:%=%.tst)
 
-	$(CXX) $(LDFLAGS) $(OBJECTS) -o $@
+%_main.tst: $(PROGS) test_data/test_%_good.txt
+	./$*_main < test_data/test_$*_good.txt 2>&1 > test_$*.out
 
-.cc:
-	$(CXX) $(CXXFLAGS) $< -o $@
+unit_tests.tst: $(PROGS)
+	./unit_tests 2>&1 > unit_test.out
 
-.cpp:
-	$(CXX) $(CXXFLAGS) $< -o $@
+$(PROGS): % : %.o $(OBJECTS)
+	$(CXX) $(LDFLAGS) $(OBJECTS) $@.o -o $@
 
-.o:
-	$(CXX) $(CXXFLAGS) $< -o $@
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) $< -c -o $@
 
 clean:
-	-rm -f *.o $(PROGS)
+	-rm -f *.o $(PROGS) *.out
 	-rm -rf *.dSYM
