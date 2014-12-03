@@ -8,7 +8,11 @@
 class sample {
 	std::vector<double> _samples;
 public:
+<<<<<<< HEAD
 	//We could have forced programmers to not initialise empty sample objects by not providing the default constructor below.
+=======
+	//We could have forced programmers to not initialise empty sample objects by not providing the default constructor below
+>>>>>>> a9a021dd0e82b7611ff679144a51ed59da3bf811
 	sample ();
 	sample (const std::vector<double>&);
 
