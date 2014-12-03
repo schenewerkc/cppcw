@@ -114,12 +114,12 @@ istream& operator>>( istream &is, fraction &f) {
 	char sep;
 	int num, den;
 	if(is >> num){
-		cout << num;
+		// cout << num;
 		if((is >> sep >> den) && sep == '/'){
-			cout << sep << den << endl;
+			// cout << sep << den << endl;
 			f.set(num,den);
 		} else {
-			cout << num << sep << den << endl;
+			// cout << num << sep << den << endl;
 			is.setstate(ios_base::badbit);
 		}
 	}

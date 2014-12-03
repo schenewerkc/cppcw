@@ -6,7 +6,7 @@
 class fraction {
 public:
 	fraction();
-	fraction(int);
+	explicit fraction(int);
 	fraction(int,int);
 	int numerator() const;
 	int denominator() const;

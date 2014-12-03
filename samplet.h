@@ -25,14 +25,14 @@ public:
     void read(std::istream&);
 
     //Statistical Functions
-    T minimum() const;
-    T maximum() const;
-    T range() const;
-    T midrange() const;
-    T mean() const;
+    double minimum() const;
+    double maximum() const;
+    double range() const;
+    double midrange() const;
+    double mean() const;
     double variance() const;
     double std_deviation() const;
-    T median() const;
+    double median() const;
 };
 
 // Overload << and >> operators for reading and printing
@@ -78,21 +78,24 @@ void samplet<T>::print(std::ostream &os) const
     os << '>';
 }
 
-
 template <typename T>
 void samplet<T>::read(std::istream &is)
 {
     char left, right, sep;
     int count = 0;
     if(is >> left){
-        if((is >> count >> sep) && left == '<' && sep == ':'){
-            while (count > 0){
+        if((is >> count >> sep) && left == '<' && sep == ':' && is.good()){
+            while (count > 0 && is.good()){
                 T s;
                 is >> s;
                 _samples.push_back(s);
                 --count;
             }
             is >> right;
+            if(right != '>'){
+              is.setstate(std::ios_base::badbit);
+            }
+
         } else {
             is.setstate(std::ios_base::badbit);
         }
@@ -101,7 +104,7 @@ void samplet<T>::read(std::istream &is)
 }
 
 template <typename T>
-T samplet<T>::minimum () const 
+double samplet<T>::minimum () const 
 {
     if(_samples.empty()){
         return 0;
@@ -110,7 +113,7 @@ T samplet<T>::minimum () const
 }
 
 template <typename T>
-T samplet<T>::maximum () const
+double samplet<T>::maximum () const
 {
     if(_samples.empty()){
         return 0;
@@ -122,31 +125,31 @@ T samplet<T>::maximum () const
 }
 
 template <typename T>
-T samplet<T>::range() const
+double samplet<T>::range() const
 {
     return this->maximum() - this->minimum();
 }
 
 template <typename T>
-T samplet<T>::midrange() const
+double samplet<T>::midrange() const
 {
     return (this->maximum() + this->minimum())/2;
 }
 
 template <typename T>
-T samplet<T>::mean () const
+double samplet<T>::mean () const
 {
     //Add all values
     if(_samples.empty()){
         return 0;
     }
-    T sum = 0;
+    double sum = 0;
     for (auto i = _samples.cbegin(); i != _samples.cend(); ++i) {
         sum += *i;
     }
 
     //Divide the number of values by the number of items
-    return operator/(sum, _samples.size());
+    return sum / _samples.size();
 }
 
 template <typename T>
@@ -156,10 +159,11 @@ double samplet<T>::variance () const
         return 0;
     }
 
-    T sum;
+    double sum;
     int num = _samples.size();
     for(auto i = _samples.begin(); i != _samples.end(); ++i){
-        sum += ((*i - mean())*(*i - mean()))/num;
+        double frac = *i;
+        sum += pow(frac - mean(),2)/num;
     }
     return sum;
 }
@@ -171,12 +175,12 @@ double samplet<T>::std_deviation () const
 }
 
 template <typename T>
-T samplet<T>::median() const
+double samplet<T>::median() const
 {
     if(_samples.empty()){
         return 0;
     }
-    T median;
+    double median;
     if (_samples.size() % 2 == 0) {
         //The number of items is even
         auto N = _samples.size()/2;

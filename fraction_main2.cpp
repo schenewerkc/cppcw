@@ -22,11 +22,7 @@ int main ()
             }
             cout << count << ": Invalid Input" << endl;
             cin.clear();
-            //read to string to clear buffer until next newline OR space 
-            //(dont know how input will be given, want to handle both)
-            string s;
-            cin >> s;
-            s.clear();
+            cin.ignore(1000,'\n');
             ++count;
             continue;
         }
