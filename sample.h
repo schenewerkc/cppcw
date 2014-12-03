@@ -7,7 +7,6 @@
 
 class sample {
 	std::vector<double> _samples;
-	// static const std::regex _format;
 public:
 	sample ();
 	sample (const std::vector<double>&);

@@ -13,7 +13,6 @@
 template <typename T>
 class samplet {
     std::vector<T> _samples;
-    // static const std::regex _format;
 public:
     samplet ();
     samplet (const std::vector<T>&);
@@ -147,7 +146,6 @@ double samplet<T>::mean () const
     for (auto i = _samples.cbegin(); i != _samples.cend(); ++i) {
         sum += *i;
     }
-
     //Divide the number of values by the number of items
     return sum / _samples.size();
 }
@@ -159,7 +157,7 @@ double samplet<T>::variance () const
         return 0;
     }
 
-    double sum;
+    double sum = 0;
     int num = _samples.size();
     for(auto i = _samples.begin(); i != _samples.end(); ++i){
         double frac = *i;

@@ -8,8 +8,6 @@
 
 using namespace std;
 
-// const regex sample::_format(" * [0-9]+ *: *([0-9]+\\.{0,1}[0-9]* )+");
-
 sample::sample() 
 {
 }
