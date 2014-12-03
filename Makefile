@@ -10,8 +10,9 @@ all: $(PROGS)
 
 test: $(PROGS:%=%.tst)
 
-%_main.tst: $(PROGS) test_data/test_%_good.txt
+%_main.tst: $(PROGS) test_data/test_%_good.txt test_data/test_%_bad.txt
 	./$*_main < test_data/test_$*_good.txt 2>&1 > test_$*.out
+	./$*_main < test_data/test_$*_bad.txt 2>&1 > test_$*.out
 
 unit_tests.tst: $(PROGS)
 	./unit_tests 2>&1 > unit_test.out
