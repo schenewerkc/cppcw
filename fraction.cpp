@@ -125,12 +125,3 @@ istream& operator>>( istream &is, fraction &f) {
 	}
 	return is;
 }
-
-<<<<<<< HEAD
-=======
-namespace std{
-	fraction sqrt(const fraction &a){
-		return fraction(sqrt(a.numerator()), sqrt(a.denominator()));
-	}
-}
->>>>>>> a9a021dd0e82b7611ff679144a51ed59da3bf811
