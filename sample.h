@@ -16,8 +16,13 @@ public:
 	void set_data (const std::vector<double>&);
 	void print(std::ostream&) const;
 	void read(std::istream&);
+	//implemented empty to make it the callers responsability to to check whether the sample has values before calling min/max. 
+	//otherwise what is the minimum of an empty set?? Zero could be a real value so is misleading.
+	bool empty() const;
 
 	//Statistical Functions
+	//calling minimum or maximum on an empty sample is undefined. Returning zero for an empty set could be missleading.
+	//call empty() first to check there are values.
 	double minimum() const;
 	double maximum() const;
 	double range() const;

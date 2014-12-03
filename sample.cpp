@@ -1,4 +1,5 @@
 #include "sample.h"
+#include "util.h"
 #include <cmath>
 #include <string>
 #include <sstream>
@@ -61,23 +62,19 @@ void sample::read(istream &is)
 	sort (_samples.begin(), _samples.end());
 }
 
+bool sample::empty() const 
+{
+	return _samples.empty();
+}
+
 double sample::minimum () const 
 {
-	if(_samples.empty()){
-		return 0;
-	}
-	return *_samples.begin();
+	return _samples.front();
 }
 
 double sample::maximum () const
 {
-	if(_samples.empty()){
-		return 0;
-	}
-	if(_samples.size() == 1){
-		return _samples[0];
-	}
-	return *(_samples.end()-1);
+	return _samples.back();
 }
 
 double sample::range() const
@@ -87,7 +84,10 @@ double sample::range() const
 
 double sample::midrange() const
 {
-	return (this->maximum() + this->minimum())/2;
+	//dividing first to prevent overflow
+	double result = 0;
+	average(this->maximum(),this->minimum(),result);
+	return result;
 }
 
 double sample::mean () const
@@ -98,11 +98,12 @@ double sample::mean () const
 	}
 	double sum = 0;
 	for (auto i = _samples.cbegin(); i != _samples.cend(); ++i) {
-		sum += *i;
+		//dividing here to avoid overflow
+		sum += (*i/_samples.size());
 	}
 
 	//Divide the number of values by the number of items
-	return sum / _samples.size();
+	return sum;
 }
 
 double sample::variance () const
@@ -135,7 +136,8 @@ double sample::median() const
 		//The number of items is even
 		auto N = _samples.size()/2;
 		//container is indexed from 0, hence N-1...
-		median = (_samples[N-1] + _samples[N])/2;
+		//dividing first to avoid overflow
+		average(_samples[N-1],_samples[N],median);
 	} else {
 		//The number of items is odd
 		median = _samples[static_cast<int>(_samples.size()/2)];

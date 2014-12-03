@@ -2,6 +2,7 @@
 #define SAMPLE_T_H
 
 #include "samplet.h"
+#include "util.h"
 #include <algorithm>
 #include <ctgmath>
 #include <string>
@@ -13,6 +14,7 @@
 template <typename T>
 class samplet {
     std::vector<T> _samples;
+
 public:
     samplet ();
     samplet (const std::vector<T>&);
@@ -22,9 +24,14 @@ public:
     void set_data (const std::vector<T>&);
     void print(std::ostream&) const;
     void read(std::istream&);
+    //implemented empty to make it the callers responsability to to check whether the sample has values before calling min/max. 
+    //otherwise what is the minimum of an empty set?? Zero could be a real value so is misleading.
+    bool empty() const;
 
-    T minimum() const;
-    T maximum() const;
+    //calling minimum or maximum on an empty sample is undefined. Returning zero for an empty set could be missleading.
+    //call empty() first to check there are values.
+    const T& minimum() const;
+    const T& maximum() const;
     //Statistical Functions
     double range() const;
     double midrange() const;
@@ -43,7 +50,7 @@ std::istream& operator>>(std::istream&,samplet<T>&);
 
 //Implementation
 template <typename T>
-samplet<T>::samplet() 
+samplet<T>::samplet()
 {
 }
 
@@ -103,24 +110,22 @@ void samplet<T>::read(std::istream &is)
 }
 
 template <typename T>
-T samplet<T>::minimum () const 
+bool samplet<T>::empty() const
 {
-    if(_samples.empty()){
-        return T(0);
-    }
-    return *_samples.begin();
+    return _samples.empty();
 }
 
 template <typename T>
-T samplet<T>::maximum () const
+const T& samplet<T>::minimum () const 
 {
-    if(_samples.empty()){
-        return T(0);
-    }
-    if(_samples.size() == 1){
-        return _samples[0];
-    }
-    return *(_samples.end()-1);
+
+    return _samples.front();
+}
+
+template <typename T>
+const T& samplet<T>::maximum () const
+{
+    return _samples.back();
 }
 
 template <typename T>
@@ -132,7 +137,10 @@ double samplet<T>::range() const
 template <typename T>
 double samplet<T>::midrange() const
 {
-    return (this->maximum() + this->minimum())/2;
+    //division first to avoid overflow
+    double result = 0;
+    average(this->maximum(),this->minimum(),result);
+    return result;
 }
 
 template <typename T>
@@ -144,10 +152,11 @@ double samplet<T>::mean () const
     }
     double sum = 0;
     for (auto i = _samples.cbegin(); i != _samples.cend(); ++i) {
-        sum += *i;
+        //division first to avoid overflow
+        sum += (static_cast<double>(*i)/_samples.size());
     }
     //Divide the number of values by the number of items
-    return sum / _samples.size();
+    return sum;
 }
 
 template <typename T>
@@ -183,7 +192,7 @@ double samplet<T>::median() const
         //The number of items is even
         auto N = _samples.size()/2;
         //container is indexed from 0, hence N-1...
-        median = (_samples[N-1] + _samples[N])/2;
+        average(_samples[N-1],_samples[N],median);
     } else {
         //The number of items is odd
         median = _samples[static_cast<int>(_samples.size()/2)];
