@@ -2,6 +2,7 @@
 #include "fraction.h"
 #include "samplet.h"
 #include <assert.h>
+#include <fstream>
 #include <vector>
 #include <sstream>
 #include <algorithm>
@@ -10,6 +11,22 @@
 using namespace std;
 using namespace std::rel_ops;
 
+void test_fraction_files(const char* filename, vector<fraction> &vfrac, uint num){
+        ifstream file(filename);
+        vfrac.clear();
+
+        while(file){
+                fraction f;
+                file >> f;
+                if(file){
+                        vfrac.push_back(f);
+                }
+        }
+
+        file.close();
+
+        assert(vfrac.size() == num);
+}
 
 int main () {
         //Fraction Tests
@@ -37,6 +54,10 @@ int main () {
         c = a / 2;
         assert(c.numerator() == 1 && c.denominator() == 6);
 
+        vector<fraction> vfrac;
+
+        test_fraction_files("test_fraction_good.txt",vfrac,1000);
+
         cout << "All fraction tests passed" << endl;
 
         // Sample tests
@@ -59,48 +80,37 @@ int main () {
         assert(round(sam.variance() * 10000)/ 10000 == 16.1389);
         assert(round(sam.std_deviation() * 100000)/100000 == 4.01732);
 
+        // file = ifstream("test_sample_good.txt");
+        // vector<sample> vsamp;
+
+        // while(file){
+        //         sample s;
+        //         file >> s;
+        //         if(file){
+        //                 vsamp.push_back(s);
+        //         }
+        // }
+        // file.close();
+
+        // assert(vsamp.size() == 1000);
+
         cout << "All sample tests passed" << endl;
- //        cout << "Enter a sample to test: " << endl;
+
+        //test generic sample functions
+
+        // file = ifstream("test_sample_fraction_good.txt");
+        // vector<samplet<fraction> > vsampfrac;
+
+        // while(file){
+        //         samplet<fraction> s;
+        //         file >> s;
+        //         if(file){
+        //                 vsampfrac.push_back(s);
+        //         }
+        // }
+        // file.close();
+        // assert(vsampfrac.size() == 100);
         
- //        while (cin){
- //                sample s;
- //                cin >> s;
- //                cout << s << endl
- //                << "Minimum: " << s.minimum() << endl << "Maximum :" << s.maximum() << endl
- //                << "Range: " << s.range() << endl << "Midrange: " << s.midrange() << endl
- //                << "Median: " << s.median() << endl << "Mean: " << s.mean() << endl 
- //                << "Variance: " << s.variance() << endl << "Std. deviation: " << s.std_deviation() << endl;
- //        }
-	// return 0;
-
-
-        // Generic Sample Tests
-        
-        string testString2("< 6: 7/5 11/1 2/78 13/4 3/2 5/6>");
-        stringstream stream2(testString2);
-        samplet<fraction> sam2;
-        stream2 >> sam2;
-        cout << "Begining sample tests with sample:" << sam2 << endl;
-
-        cout << sam2 << endl
-                << "Minimum: " << sam2.minimum() << endl << "Maximum :" << sam2.maximum() << endl
-                << "Range: " << sam2.range() << endl << "Midrange: " << sam2.midrange() << endl
-                << "Median: " << sam2.median() << endl << "Mean: " << sam2.mean() << endl 
-                << "Variance: " << sam2.variance() << endl << "Std. deviation: " << sam2.std_deviation() << endl;
-
-        cout << "All generic sample tests passed" << endl;
-
-        cout << "Enter a sample of fractions to test: " << endl;
-        
-        while (cin){
-                samplet<fraction> s;
-                cin >> s;
-                cout << s << endl
-                << "Minimum: " << s.minimum() << endl << "Maximum :" << s.maximum() << endl
-                << "Range: " << s.range() << endl << "Midrange: " << s.midrange() << endl
-                << "Median: " << s.median() << endl << "Mean: " << s.mean() << endl 
-                << "Variance: " << s.variance() << endl << "Std. deviation: " << s.std_deviation() << endl;
-        }
 
         // Sample s;
         return 0;

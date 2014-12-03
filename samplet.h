@@ -30,8 +30,8 @@ public:
     T range() const;
     T midrange() const;
     T mean() const;
-    T variance() const;
-    T std_deviation() const;
+    double variance() const;
+    double std_deviation() const;
     T median() const;
 };
 
@@ -69,7 +69,7 @@ void samplet<T>::set_data (const std::vector<T>& data)
 }
 
 template <typename T>
-void samplet<T>::print(ostream &os) const 
+void samplet<T>::print(std::ostream &os) const 
 {
     os << "< " << _samples.size()  << ": ";
     for(auto i = _samples.cbegin(); i != _samples.cend(); ++i){
@@ -80,7 +80,7 @@ void samplet<T>::print(ostream &os) const
 
 
 template <typename T>
-void samplet<T>::read(istream &is)
+void samplet<T>::read(std::istream &is)
 {
     char left, right, sep;
     int count = 0;
@@ -94,7 +94,7 @@ void samplet<T>::read(istream &is)
             }
             is >> right;
         } else {
-            is.setstate(ios_base::badbit);
+            is.setstate(std::ios_base::badbit);
         }
     } 
     std::sort (_samples.begin(), _samples.end());
@@ -146,11 +146,11 @@ T samplet<T>::mean () const
     }
 
     //Divide the number of values by the number of items
-    return sum / _samples.size();
+    return operator/(sum, _samples.size());
 }
 
 template <typename T>
-T samplet<T>::variance () const
+double samplet<T>::variance () const
 {
     if(_samples.empty()){
         return 0;
@@ -165,7 +165,7 @@ T samplet<T>::variance () const
 }
 
 template <typename T>
-T samplet<T>::std_deviation () const
+double samplet<T>::std_deviation () const
 {
     return std::sqrt(this->variance());
 }
@@ -191,14 +191,14 @@ T samplet<T>::median() const
 }
 // Free functions
 template <typename T>
-ostream& operator<<(std::ostream &os, const samplet<T> &s)
+std::ostream& operator<<(std::ostream &os, const samplet<T> &s)
 {
     s.print(os);
     return os;
 }
 
 template <typename T>
-istream& operator>>(std::istream &is,samplet<T> &s)
+std::istream& operator>>(std::istream &is,samplet<T> &s)
 {
     s.read(is);
     return is;

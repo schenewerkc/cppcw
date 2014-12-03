@@ -3,8 +3,6 @@
 
 #include <iostream>
 
-using namespace std;
-
 class fraction {
 public:
 	fraction();
@@ -12,6 +10,8 @@ public:
 	fraction(int,int);
 	int numerator() const;
 	int denominator() const;
+
+	operator double() const;
 
 	bool operator==(const fraction&) const;
 	bool operator<(const fraction&) const;
@@ -43,10 +43,7 @@ fraction operator/(int, fraction);
 fraction operator/(fraction,int);
 
 // format: n/m 
-ostream& operator<<( ostream &os, const fraction &f);
-istream& operator>>( istream &os, fraction &f);
+std::ostream& operator<<( std::ostream &os, const fraction &f);
+std::istream& operator>>( std::istream &os, fraction &f);
 
-namespace std {
-fraction sqrt(const fraction&);
-}
 #endif // FRACTION

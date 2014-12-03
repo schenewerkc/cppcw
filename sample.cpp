@@ -40,34 +40,6 @@ void sample::print(ostream &os) const
 	os << '>';
 }
 
-// regex read
-// void sample::read(istream &is)
-// {
-// 	string buffer;
-// 	string samples;
-
-// 	if(getline(is,buffer,'<') && getline(is,samples,'>')){
-// 		buffer.clear();
-// 		if(!regex_match(samples,sample::_format)){
-// 			is.setstate(ios_base::badbit);
-// 			return;
-// 		}
-
-// 		stringstream ss(samples);
-// 		int count = 0;
-// 		char sep;
-// 		ss >> count >> sep;
-
-// 		while (count > 0){
-// 			double sample;
-// 			ss >> sample;
-// 			_samples.push_back(sample);
-// 			--count;
-// 		}
-// 		sort (_samples.begin(), _samples.end());
-// 	}
-// }
-
 void sample::read(istream &is)
 {
 	char left, right, sep;

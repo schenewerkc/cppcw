@@ -22,6 +22,10 @@ fraction::fraction(int n, int d) : _numerator(n), _denominator(d)
 int fraction::numerator() const { return _numerator; }
 int fraction::denominator() const { return _denominator; }
 
+fraction::operator double() const {
+	return numerator() / static_cast<double>(denominator());
+}
+
 void fraction::simplify()
 {
         if(_denominator == 0) return;
@@ -110,17 +114,15 @@ istream& operator>>( istream &is, fraction &f) {
 	char sep;
 	int num, den;
 	if(is >> num){
+		cout << num;
 		if((is >> sep >> den) && sep == '/'){
+			cout << sep << den << endl;
 			f.set(num,den);
 		} else {
+			cout << num << sep << den << endl;
 			is.setstate(ios_base::badbit);
 		}
 	}
 	return is;
 }
 
-namespace std{
-fraction sqrt(const fraction &a){
-	return fraction(sqrt(a.numerator()), sqrt(a.denominator()));
-}
-}
