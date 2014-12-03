@@ -102,5 +102,7 @@ int main () {
                 << "Median: " << s.median() << endl << "Mean: " << s.mean() << endl 
                 << "Variance: " << s.variance() << endl << "Std. deviation: " << s.std_deviation() << endl;
         }
+
+        // Sample s;
         return 0;
 }
