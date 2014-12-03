@@ -115,7 +115,5 @@ int main ()
     test_sample_t<fraction>(build_sample_t<fraction>("< 2: 1/2 1/4 >"), 2, fraction(1,4),
         fraction(1,2),fraction(1,4),fraction(3,8),fraction(3,8),fraction(3,8),
         0.0078125, 0.088388347);
-
-
     return 0;
 }
