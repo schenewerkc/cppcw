@@ -53,6 +53,9 @@ void sample::read(istream &is)
 				--count;
 			}
 			is >> right;
+            if(right != '>'){
+              is.setstate(std::ios_base::badbit);
+            }
 		} else {
 			is.setstate(ios_base::badbit);
 		}

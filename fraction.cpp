@@ -12,10 +12,6 @@ fraction::fraction(int n) : _numerator(n), _denominator(1) {}
 
 fraction::fraction(int n, int d) : _numerator(n), _denominator(d)
 {
-	if(d == 0) {
-		_numerator = 0;
-		return;
-	}
 	simplify();
 }
 
@@ -28,7 +24,10 @@ fraction::operator double() const {
 
 void fraction::simplify()
 {
-        if(_denominator == 0) return;
+        if(_denominator == 0) {
+		_numerator = 0;
+		return;
+		}
         int _gcd = gcd(_numerator,_denominator);
         _numerator /= _gcd;
         _denominator /= _gcd;
@@ -83,6 +82,7 @@ fraction& fraction::operator/=(const fraction &o)
 
 void fraction::set(int num, int den)
 {
+
 	_numerator = num;
 	_denominator = den;
 	simplify();

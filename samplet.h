@@ -24,9 +24,9 @@ public:
     void print(std::ostream&) const;
     void read(std::istream&);
 
+    T minimum() const;
+    T maximum() const;
     //Statistical Functions
-    double minimum() const;
-    double maximum() const;
     double range() const;
     double midrange() const;
     double mean() const;
@@ -104,19 +104,19 @@ void samplet<T>::read(std::istream &is)
 }
 
 template <typename T>
-double samplet<T>::minimum () const 
+T samplet<T>::minimum () const 
 {
     if(_samples.empty()){
-        return 0;
+        return T(0);
     }
     return *_samples.begin();
 }
 
 template <typename T>
-double samplet<T>::maximum () const
+T samplet<T>::maximum () const
 {
     if(_samples.empty()){
-        return 0;
+        return T(0);
     }
     if(_samples.size() == 1){
         return _samples[0];

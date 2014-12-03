@@ -59,7 +59,7 @@ void test_sample(const sample &sam, uint size,
 }
 template <typename T>
 void test_sample_t(const samplet<T> &sam, uint size, 
-    double minimum, double maximum, double range, 
+    T minimum, T maximum, double range, 
     double midrange, double median, double mean, 
     double variance, double std)
 {
@@ -71,9 +71,9 @@ void test_sample_t(const samplet<T> &sam, uint size,
     cout << "is sorted ";
     assert(is_sorted(data.begin(),data.end()));
     cout << "minimum " << sam.minimum() << "(" << minimum << ") ";
-    assert(abs(sam.minimum() - minimum) < epsilon);
+    assert(sam.minimum() == minimum);
     cout << "maximum " << sam.maximum() << "(" << maximum << ") ";
-    assert(abs(sam.maximum() - maximum) < epsilon);
+    assert(sam.maximum() == maximum);
     cout << "range " << sam.range() << "(" << range << ") ";
     assert(abs(sam.range() - range) < epsilon);
     cout << "midrange " << sam.midrange() << "(" << midrange << ") ";
@@ -112,6 +112,6 @@ int main ()
     
     test_fraction(fraction(1,2),fraction(1,2),fraction(1,1),fraction(0,1),fraction(1,4),fraction(1,1));
     test_sample(build_sample("< 6 :7 11 2 13 3 5>"),6,2,13,11,7.5,6,6.833333,16.1389,4.01732);
-    test_sample_t<fraction>(build_sample_t<fraction>("< 2: 1/2 1/4 >"), 2, 0.25,0.5,0.25,0.375,0.375,0.375,0.015625, 0.125);
+    test_sample_t<fraction>(build_sample_t<fraction>("< 2: 1/2 1/4 >"), 2, fraction(1,4),fraction(1,2),0.25,0.375,0.375,0.375,0.015625, 0.125);
     return 0;
 }
