@@ -12,6 +12,7 @@ using namespace std::rel_ops;
 
 
 int main () {
+	
         //Fraction Tests
         fraction a(1,3);
         fraction aa(1,3);
