@@ -100,6 +100,7 @@ fraction operator*(fraction a, int b) { return fraction(b) *= a; }
 //Not commutative!
 fraction operator/(fraction a, fraction b) { return a/=b; }
 fraction operator/(int a, fraction b) { return fraction(a)/=b; }
+
 fraction operator/(fraction a, int b) { return a/=fraction(b); }
 
 ostream& operator<<( ostream &os, const fraction &f) {
@@ -124,3 +125,6 @@ fraction sqrt(const fraction &a){
 	return fraction(sqrt(a.numerator()), sqrt(a.denominator()));
 }
 }
+
+fraction operator/(fraction a, int b) { return a/=fraction(b); }
+
