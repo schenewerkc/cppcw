@@ -333,9 +333,11 @@ int main ()
     {
         samplet<fraction> normal(build_sample_t<fraction>("< 6: 1/2 1/4 4/5 7/3 7/9 15/1>"));
         samplet<fraction> limit(build_sample_t<fraction>("< 2: 2147483647/1 2147483647/1"));
+        samplet<fraction> full(build_sample_t<fraction>("< 2: 2147483647/2147483647 2147483647/2147483647"));
         samplet<fraction> empty(build_sample_t<fraction>("< 0: >"));
 
         test_sample_is_empty(empty,true);
+
         test_sample_is_empty(normal,false);
         test_sample_size(normal,6);
         test_sample_min(normal,fraction(1,4));
@@ -349,15 +351,25 @@ int main ()
 
         test_sample_is_empty(limit,false);
         test_sample_size(limit, 2);
-        test_sample_min(limit,fraction(2147483647,1));
-        test_sample_max(limit,fraction(2147483647,1));
+        test_sample_min(limit,fraction(std::numeric_limits<int>::max(),1));
+        test_sample_max(limit,fraction(std::numeric_limits<int>::max(),1));
         test_sample_range(limit,0);
-        test_sample_midrange(limit,2147483647);
-        test_sample_median(limit,2147483647);
+        test_sample_midrange(limit,std::numeric_limits<int>::max());
+        test_sample_median(limit,std::numeric_limits<int>::max());
         test_sample_variance(limit,0);
         test_sample_std_dev(limit,0);
 
-
+        test_sample_is_empty(full,false);
+        test_sample_size(full, 2);
+        test_sample_min(full,fraction(1,1));
+        test_sample_max(full,fraction(1,1));
+        test_sample_min(full,fraction(std::numeric_limits<int>::max(),std::numeric_limits<int>::max()));
+        test_sample_max(full,fraction(std::numeric_limits<int>::max(),std::numeric_limits<int>::max()));
+        test_sample_range(full,0);
+        test_sample_midrange(full,1);
+        test_sample_median(full,1);
+        test_sample_variance(full,0);
+        test_sample_std_dev(full,0);
     }
     return 0;
 }
