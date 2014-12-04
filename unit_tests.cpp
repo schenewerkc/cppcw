@@ -1,7 +1,7 @@
 #include "fraction.h"
 #include "sample.h"
 #include "samplet.h"
-#include <assert.h>
+// #include <assert.h>
 #include <fstream>
 #include <vector>
 #include <sstream>
@@ -9,50 +9,56 @@
 #include <cmath>
 
 using namespace std;
+
+void assert(bool test, const char *success = "OK", const char *fail = "Failed!")
+{
+    if(test){
+        cout << success;
+    } else {
+        cout << fail;
+    }
+}
 // Fraction tests
 template <typename T, typename U, typename V>
 void test_add(const T &lhs, const U &rhs, const V &result)
 {
-    cout << "Testing: " << lhs << " + " << rhs << " = " << result << "(" << lhs + rhs << ")";
     assert(lhs + rhs == result);
-    cout << " Passed!" << endl;
+    cout << " Testing: " << lhs << " + " << rhs << " = " << result << "(" << lhs + rhs << ")" << endl;
 }
 
 template <typename T, typename U, typename V>
 void test_sub(const T &lhs, const U &rhs, const V &result)
 {
-    cout << "Testing: " << lhs << " - " << rhs << " = " << result << "(" << lhs - rhs << ")";
     assert(lhs - rhs == result);
-    cout << " Passed!" << endl;
+    cout << " Testing: " << lhs << " - " << rhs << " = " << result << "(" << lhs - rhs << ")" << endl;
 }
 template <typename T, typename U, typename V>
 void test_mult(const T &lhs, const U &rhs, const V &result)
 {
-    cout << "Testing: " << lhs << " * " << rhs << " = " << result << "(" << lhs * rhs << ")";
     assert(lhs * rhs == result);
-    cout << " Passed!" << endl;
+    cout << " Testing: " << lhs << " * " << rhs << " = " << result << "(" << lhs * rhs << ")" << endl;
 }
 template <typename T, typename U, typename V>
 void test_div(const T &lhs, const U &rhs, const V &result)
 {
-    cout << "Testing: " << lhs << " / " << rhs << " = " << result << "(" << lhs / rhs << ")";
     assert(lhs / rhs == result);
-    cout << " Passed!" << endl;
+    cout << " Testing: " << lhs << " / " << rhs << " = " << result << "(" << lhs / rhs << ")" << endl;
+    
 }
 template <typename T, typename U>
 void test_equality(const T &a, const U &b)
 {
-    cout << "Testing: " << a << " = " << b;
     assert(a == b);
-    cout << " Passed!" << endl;
+    cout << " Testing: " << a << " = " << b << endl;
+    
 }
 
 template <typename T, typename U>
 void test_less_than(const T &a, const U &b)
 {
-    cout << "Testing: " << a << " < " << b;
     assert(a < b);
-    cout << " Passed!" << endl;
+    cout << " Testing: " << a << " < " << b << endl;
+    
 }
 
 
@@ -60,84 +66,77 @@ void test_less_than(const T &a, const U &b)
 void test_sample_size(const sample &sam, uint size)
 {
     vector<double> data(sam.get_data());
-    cout << "Testing size() of: " << sam << " is " << size << "(" << data.size() << ")";
     assert(data.size() == size);
-    cout << " Passed!" << endl;
+    cout << " Testing size() of: " << sam << " is " << size << "(" << data.size() << ")" << endl;
 }
 
 void test_sample_min(const sample &sam, double min)
 {
     double epsilon = 0.0001;
-    cout << "Testing minimum() of: " << sam << " is " << min << "(" << sam.minimum() << ")";
     assert(abs(sam.minimum() - min) < epsilon);
-    cout << " Passed!" << endl;
+    cout << " Testing minimum() of: " << sam << " is " << min << "(" << sam.minimum() << ")" << endl;
 }
 
 void test_sample_max(const sample &sam, double max)
 {
     double epsilon = 0.0001;
-    cout << "Testing maximum() of: " << sam << " is " << max << "(" << sam.maximum() << ")";
     assert(abs(sam.maximum() - max) < epsilon);
-    cout << " Passed!" << endl;
+    cout << " Testing maximum() of: " << sam << " is " << max << "(" << sam.maximum() << ")" << endl;
 }
 
 void test_sample_range(const sample &sam, double range)
 {
     double epsilon = 0.0001;
-    cout << "Testing range() of: " << sam << " is " << range << "(" << sam.range() << ")";
     assert(abs(sam.range() - range) < epsilon);
-    cout << " Passed!" << endl;
+    cout << " Testing range() of: " << sam << " is " << range << "(" << sam.range() << ")" << endl;
 }
 
 void test_sample_midrange(const sample &sam, double midrange)
 {
     double epsilon = 0.0001;
-    cout << "Testing midrange() of: " << sam << " is " << midrange << "(" << sam.midrange() << ")";
     assert(abs(sam.midrange() - midrange) < epsilon);
-    cout << " Passed!" << endl;
+    cout << " Testing midrange() of: " << sam << " is " << midrange << "(" << sam.midrange() << ")" << endl;
 }
 
 void test_sample_median(const sample &sam, double median)
 {
     double epsilon = 0.0001;
-    cout << "Testing median() of: " << sam << " is " << median << "(" << sam.median() << ")";
     assert(abs(sam.median() - median) < epsilon);
-    cout << " Passed!" << endl;
+    cout << " Testing median() of: " << sam << " is " << median << "(" << sam.median() << ")" << endl;
 }
 
 void test_sample_mean(const sample &sam, double mean)
 {
     double epsilon = 0.0001;
-    cout << "Testing mean() of: " << sam << " is " << mean << "(" << sam.mean() << ")";
     assert(abs(sam.mean() - mean) < epsilon);
-    cout << " Passed!" << endl;
+    cout << " Testing mean() of: " << sam << " is " << mean << "(" << sam.mean() << ")" << endl;
 }
 
 void test_sample_variance(const sample &sam, double variance)
 {
     double epsilon = 0.0001;
-    cout << "Testing variance() of: " << sam << " is " << variance << "(" << sam.variance() << ")";
     assert(abs(sam.variance() - variance) < epsilon);
-    cout << " Passed!" << endl;
+    cout << " Testing variance() of: " << sam << " is " << variance << "(" << sam.variance() << ")" << endl;
 }
 
 void test_sample_std_dev(const sample &sam, double std_deviation)
 {
     double epsilon = 0.0001;
-    cout << "Testing std_deviation() of: " << sam << " is " << std_deviation << "(" << sam.std_deviation() << ")";
     assert(abs(sam.std_deviation() - std_deviation) < epsilon);
-    cout << " Passed!" << endl;
+    cout << " Testing std_deviation() of: " << sam << " is " << std_deviation << "(" << sam.std_deviation() << ")" << endl;
 }
 
-void test_sample_is_empty(const sample &sam, bool is_empty){
-    cout << "Testing empty() of: " << sam;
+void test_sample_is_empty(const sample &sam, bool is_empty)
+{
+    assert(sam.empty() == is_empty);
+    cout << " Testing empty() of: " << sam;
     if(is_empty){
         cout << " is true";
     } else {
         cout << " is false";
     }
-    assert(sam.empty() == is_empty);
-    cout << " Passed!" << endl;
+    cout << endl;
+    
 }
 
 //Generic sample tests
@@ -145,93 +144,90 @@ template <typename T>
 void test_sample_size(const samplet<T> &sam, uint size)
 {
     vector<T> data(sam.get_data());
-    cout << "Testing size() of: " << sam << " is " << size << "(" << data.size() << ")";
     assert(data.size() == size);
-    cout << " Passed!" << endl;
+    cout << " Testing size() of: " << sam << " is " << size << "(" << data.size() << ")" << endl;
 }
 
 template <typename T>
 void test_sample_min(const samplet<T> &sam, T min)
 {
-    cout << "Testing minimum() of: " << sam << " is " << min << "(" << sam.minimum() << ")";
     assert(sam.minimum() == min);
-    cout << " Passed!" << endl;
+    cout << " Testing minimum() of: " << sam << " is " << min << "(" << sam.minimum() << ")" << endl;
 }
 
 template <typename T>
 void test_sample_max(const samplet<T> &sam, T max)
 {
-    cout << "Testing maximum() of: " << sam << " is " << max << "(" << sam.maximum() << ")";
+    
     assert(sam.maximum() == max);
-    cout << " Passed!" << endl;
+    cout << " Testing maximum() of: " << sam << " is " << max << "(" << sam.maximum() << ")" << endl;
 }
 
 template <typename T>
 void test_sample_range(const samplet<T> &sam, double range)
 {
     double epsilon = 0.0001;
-    cout << "Testing range() of: " << sam << " is " << range << "(" << sam.range() << ")";
+    
     assert(abs(sam.range() - range) < epsilon);
-    cout << " Passed!" << endl;
+    cout << " Testing range() of: " << sam << " is " << range << "(" << sam.range() << ")" << endl;
 }
 
 template <typename T>
 void test_sample_midrange(const samplet<T> &sam, double midrange)
 {
     double epsilon = 0.0001;
-    cout << "Testing midrange() of: " << sam << " is " << midrange << "(" << sam.midrange() << ")";
+    
     assert(abs(sam.midrange() - midrange) < epsilon);
-    cout << " Passed!" << endl;
+    cout << " Testing midrange() of: " << sam << " is " << midrange << "(" << sam.midrange() << ")" << endl;
 }
 
 template <typename T>
 void test_sample_median(const samplet<T> &sam, double median)
 {
     double epsilon = 0.0001;
-    cout << "Testing median() of: " << sam << " is " << median << "(" << sam.median() << ")";
     assert(abs(sam.median() - median) < epsilon);
-    cout << " Passed!" << endl;
+    cout << " Testing median() of: " << sam << " is " << median << "(" << sam.median() << ")" << endl;
+
 }
 
 template <typename T>
 void test_sample_mean(const samplet<T> &sam, double mean)
 {
     double epsilon = 0.0001;
-    cout << "Testing mean() of: " << sam << " is " << mean << "(" << sam.mean() << ")";
     assert(abs(sam.mean() - mean) < epsilon);
-    cout << " Passed!" << endl;
+    cout << " Testing mean() of: " << sam << " is " << mean << "(" << sam.mean() << ")" << endl;
 }
 
 template <typename T>
 void test_sample_variance(const samplet<T> &sam, double variance)
 {
     double epsilon = 0.0001;
-    cout << "Testing variance() of: " << sam << " is " << variance << "(" << sam.variance() << ")";
+    
     assert(abs(sam.variance() - variance) < epsilon);
-    cout << " Passed!" << endl;
+    cout << " Testing variance() of: " << sam << " is " << variance << "(" << sam.variance() << ")" << endl;
 }
 
 template <typename T>
 void test_sample_std_dev(const samplet<T> &sam, double std_deviation)
 {
     double epsilon = 0.0001;
-    cout << "Testing std_deviation() of: " << sam << " is " << std_deviation << "(" << sam.std_deviation() << ")";
+    
     assert(abs(sam.std_deviation() - std_deviation) < epsilon);
-    cout << " Passed!" << endl;
+    cout << " Testing std_deviation() of: " << sam << " is " << std_deviation << "(" << sam.std_deviation() << ")" << endl;
 }
 
 template <typename T>
-void test_sample_is_empty(const samplet<T> &sam, bool is_empty){
-    cout << "Testing empty() of: " << sam;
+void test_sample_is_empty(const samplet<T> &sam, bool is_empty)
+{
+    assert(sam.empty() == is_empty);
+    cout << " Testing empty() of: " << sam;
     if(is_empty){
         cout << " is true";
     } else {
         cout << " is false";
     }
-    assert(sam.empty() == is_empty);
-    cout << " Passed!" << endl;
+    cout << endl;
 }
-
 sample build_sample(const string &sample_str)
 {
     stringstream stream(sample_str);
@@ -251,6 +247,7 @@ samplet<T> build_sample_t(const string &sample_str)
 
 int main () 
 {
+    cerr.tie();
     {
         fraction half(1,2);
         fraction quarter(1,4);
@@ -320,10 +317,22 @@ int main ()
         test_sample_mean(normal,6.83333);
         test_sample_variance(normal,16.1389);
         test_sample_std_dev(normal,4.01732);
+
+        test_sample_is_empty(limit, false);
+        test_sample_size(limit,2);
+        test_sample_min(limit,std::numeric_limits<double>::max());
+        test_sample_max(limit,std::numeric_limits<double>::max());
+        test_sample_range(limit,0);
+        test_sample_midrange(limit,std::numeric_limits<double>::max());
+        test_sample_median(limit,std::numeric_limits<double>::max());
+        test_sample_mean(limit,std::numeric_limits<double>::max());
+        test_sample_variance(limit,0);
+        test_sample_std_dev(limit,0);
     }
 
     {
         samplet<fraction> normal(build_sample_t<fraction>("< 6: 1/2 1/4 4/5 7/3 7/9 15/1>"));
+        samplet<fraction> limit(build_sample_t<fraction>("< 2: 2147483647/1 2147483647/1"));
         samplet<fraction> empty(build_sample_t<fraction>("< 0: >"));
 
         test_sample_is_empty(empty,true);
@@ -337,15 +346,9 @@ int main ()
         test_sample_mean(normal,3.2768518);
         test_sample_variance(normal,27.9292224);
         test_sample_std_dev(normal,5.28481054);
+        
+        test_sample_is_empty(limit,false);
 
     }
-    
-    
-    // test_fraction(fraction(1,2),fraction(1,2),fraction(1,1),fraction(0,1),fraction(1,4),fraction(1,1));
-    // test_sample(build_sample("< 6 :7 11 2 13 3 5>"),6,2,13,11,7.5,6,6.833333,16.1389,4.01732);
-    // test_sample(build_sample("<2: 1.7976931348623158e+308 1.7976931348623158e+308 >"),2,std::numeric_limits<double>::max(),std::numeric_limits<double>::max(),0,std::numeric_limits<double>::max(),std::numeric_limits<double>::max(),std::numeric_limits<double>::max(),0,0);
-    // test_sample_t<fraction>(build_sample_t<fraction>("< 2: 1/2 1/4 >"), 2, fraction(1,4),fraction(1,2),0.25,0.375,0.375,0.375,0.015625, 0.125);
-    test_sample_is_empty<fraction>(build_sample_t<fraction>("< 0: >"),true);
-    test_sample_is_empty<fraction>(build_sample_t<fraction>("< 1: 7/5 >"),false);
     return 0;
 }
