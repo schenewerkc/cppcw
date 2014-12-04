@@ -346,8 +346,17 @@ int main ()
         test_sample_mean(normal,3.2768518);
         test_sample_variance(normal,27.9292224);
         test_sample_std_dev(normal,5.28481054);
-        
+
         test_sample_is_empty(limit,false);
+        test_sample_size(limit, 2);
+        test_sample_min(limit,fraction(2147483647,1));
+        test_sample_max(limit,fraction(2147483647,1));
+        test_sample_range(limit,0);
+        test_sample_midrange(limit,2147483647);
+        test_sample_median(limit,2147483647);
+        test_sample_variance(limit,0);
+        test_sample_std_dev(limit,0);
+
 
     }
     return 0;
