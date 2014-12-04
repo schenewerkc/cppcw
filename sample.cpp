@@ -84,7 +84,7 @@ double sample::range() const
 
 double sample::midrange() const
 {
-	//dividing first to prevent overflow
+	//dividing first to prevent overflow, using generic average funciton
 	double result = 0;
 	average(this->maximum(),this->minimum(),result);
 	return result;
@@ -101,8 +101,6 @@ double sample::mean () const
 		//dividing here to avoid overflow
 		sum += (*i/_samples.size());
 	}
-
-	//Divide the number of values by the number of items
 	return sum;
 }
 

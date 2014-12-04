@@ -25,12 +25,17 @@ fraction::operator double() const {
 void fraction::simplify()
 {
         if(_denominator == 0) {
-		_numerator = 0;
+			_numerator = 0;
 		return;
 		}
         int _gcd = gcd(_numerator,_denominator);
         _numerator /= _gcd;
         _denominator /= _gcd;
+
+        if(_denominator < 0){
+        	_numerator *= -1;
+        	_denominator *= -1;
+        }
 }
 
 
