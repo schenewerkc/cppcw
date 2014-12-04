@@ -1,6 +1,22 @@
 #ifndef SAMPLE_T_H
 #define SAMPLE_T_H
 
+//Section 2.3 Question 15
+//Double is a good choice for some of the return type of some of the member functions of samplet, 
+//but not all of them. For the functions mean(), median(), range(), variance() and std_deviation(), 
+//if the return type is T, an T is for instance an int, these calculations could give an unreliable 
+//result due to a loss in precission from integer division. E.g. the mean of two integers 1 and 2 
+//should be 1.5, but 1.5 would be returned as 1 if converted to an integer. Therefore we have chosen 
+//to keep the return type as double for these functions. 
+
+//For the functions minimum() and maximum() we have allowed a return type of T, returned by const reference. 
+//As these functions are essentially getters for the smallest and largest values in the dataset, they 
+//could not result in a loss in precission. This keeps the code as generic as possible. Their return 
+//value in the case of an empty set is undefined. We have provided the member function empty() and it 
+//is the callers responsability to check empty() returns false before calling minimum() or maximum(). 
+//Returning a zero or a default initialised value in the case of an empty set could be misleading as 
+//the same value could could occur in a non-empty set, the caller would not be able to tell the difference.
+
 #include "samplet.h"
 #include "util.h"
 #include <algorithm>

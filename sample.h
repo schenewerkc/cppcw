@@ -1,14 +1,22 @@
 #ifndef SAMPLE
 #define SAMPLE
 
+//Section 2.2 Q14
+//The numbers given are the largest that can be represented by a double, written in scientific notation. 
+//The std::scientific stream manipulator can be used to read these numbers in as doubles. 
+//As the numbers are large they can caused overflow problems in some functions 
+//(sample.cpp lines 89, 102,140, samplet.h lines 146, 160, 199). In all of these cases the overflow 
+//was avoidable by making division the first operation in the calculation. As four of these cases were 
+//essentially the same calculation (taking the average of two values) we wrote a generic helper function and put it in util.h (line 9).
+
 #include <iostream>
 #include <vector>
-// #include <regex>
 
 class sample {
 	std::vector<double> _samples;
 public:
-	//We could have forced programmers to not initialise empty sample objects by not providing the default constructor below.
+	//We could have forced programmers to not initialise empty sample objects by not providing the default constructor.
+	//As there is another constructor defined, this would stop the C++ compiler from generating a default constructor automatically.
 	sample ();
 	sample (const std::vector<double>&);
 
