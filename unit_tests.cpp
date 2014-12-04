@@ -302,6 +302,7 @@ int main ()
 
     {
         sample normal(build_sample("< 6 :7 11 2 13 3 5>"));
+        sample odd(build_sample("< 3: 7 5 3 >"));
         sample limit(build_sample("<2: 1.7976931348623158e+308 1.7976931348623158e+308 >"));
         sample empty(build_sample("< 0: >"));
 
@@ -328,12 +329,25 @@ int main ()
         test_sample_mean(limit,std::numeric_limits<double>::max());
         test_sample_variance(limit,0);
         test_sample_std_dev(limit,0);
+
+        test_sample_is_empty(odd,false);
+        test_sample_size(odd,3);
+        test_sample_min(odd,3);
+        test_sample_max(odd,7);
+        test_sample_range(odd,4);
+        test_sample_midrange(odd,5);
+        test_sample_median(odd,5);
+        test_sample_mean(odd,5);
+        test_sample_variance(odd,2.6667);
+        test_sample_std_dev(odd,1.63299);
     }
 
     {
         samplet<fraction> normal(build_sample_t<fraction>("< 6: 1/2 1/4 4/5 7/3 7/9 15/1>"));
+        samplet<fraction> odd(build_sample_t<fraction>("< 3: 7/1 5/1 3/1 >"));
         samplet<fraction> limit(build_sample_t<fraction>("< 2: 2147483647/1 2147483647/1"));
         samplet<fraction> full(build_sample_t<fraction>("< 2: 2147483647/2147483647 2147483647/2147483647"));
+
         samplet<fraction> empty(build_sample_t<fraction>("< 0: >"));
 
         test_sample_is_empty(empty,true);
@@ -356,6 +370,7 @@ int main ()
         test_sample_range(limit,0);
         test_sample_midrange(limit,std::numeric_limits<int>::max());
         test_sample_median(limit,std::numeric_limits<int>::max());
+        test_sample_mean(limit,std::numeric_limits<int>::max());
         test_sample_variance(limit,0);
         test_sample_std_dev(limit,0);
 
@@ -367,9 +382,22 @@ int main ()
         test_sample_max(full,fraction(std::numeric_limits<int>::max(),std::numeric_limits<int>::max()));
         test_sample_range(full,0);
         test_sample_midrange(full,1);
+        test_sample_mean(full,1);
         test_sample_median(full,1);
         test_sample_variance(full,0);
         test_sample_std_dev(full,0);
+
+        test_sample_is_empty(odd,false);
+        test_sample_size(odd, 3);
+        test_sample_min(odd,fraction(3,1));
+        test_sample_max(odd,fraction(7,1));
+        test_sample_range(odd,4);
+        test_sample_midrange(odd,5);
+        test_sample_median(odd,5);
+        test_sample_mean(odd,5);
+        test_sample_variance(odd,2.66667);
+        test_sample_std_dev(odd,1.63299);
+    
     }
     return 0;
 }
