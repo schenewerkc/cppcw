@@ -5,7 +5,7 @@
 //The numbers given are the largest that can be represented by a double, written in scientific notation. 
 //The std::scientific stream manipulator can be used to read these numbers in as doubles. 
 //As the numbers are large they can caused overflow problems in some functions 
-//(sample.cpp lines 89, 102,140, samplet.h lines 146, 160, 199). In all of these cases the overflow 
+//(sample.cpp lines 89, 102,140, samplet.h lines 164, 178, 217). In all of these cases the overflow 
 //was avoidable by making division the first operation in the calculation. As four of these cases were 
 //essentially the same calculation (taking the average of two values) we wrote a generic helper function and put it in util.h (line 9).
 
@@ -15,6 +15,7 @@
 class sample {
 	std::vector<double> _samples;
 public:
+	//Section 2.2 Q1
 	//We could have forced programmers to not initialise empty sample objects by not providing the default constructor.
 	//As there is another constructor defined, this would stop the C++ compiler from generating a default constructor automatically.
 	sample ();
@@ -30,7 +31,7 @@ public:
 	bool empty() const;
 
 	//Statistical Functions
-	//calling minimum or maximum on an empty sample is undefined. Returning zero for an empty set could be missleading.
+	//calling minimum or maximum on an empty sample is undefined. Returning zero for an empty set could be missleading. See comment in samplet.h.
 	//call empty() first to check there are values.
 	double minimum() const;
 	double maximum() const;

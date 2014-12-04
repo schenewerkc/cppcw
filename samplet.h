@@ -5,15 +5,17 @@
 //Double is a good choice for some of the return type of some of the member functions of samplet, 
 //but not all of them. For the functions mean(), median(), range(), variance() and std_deviation(), 
 //if the return type is T, an T is for instance an int, these calculations could give an unreliable 
-//result due to a loss in precission from integer division. E.g. the mean of two integers 1 and 2 
+//result due to a loss in precision from integer division. E.g. the mean of two integers 1 and 2 
 //should be 1.5, but 1.5 would be returned as 1 if converted to an integer. Therefore we have chosen 
 //to keep the return type as double for these functions. 
 
 //For the functions minimum() and maximum() we have allowed a return type of T, returned by const reference. 
 //As these functions are essentially getters for the smallest and largest values in the dataset, they 
-//could not result in a loss in precission. This keeps the code as generic as possible. Their return 
+//could not result in a loss in precision. This keeps the code as generic as possible. Their return 
 //value in the case of an empty set is undefined. We have provided the member function empty() and it 
-//is the callers responsability to check empty() returns false before calling minimum() or maximum(). 
+//is the caller's responsibility to check if empty() returns false before calling minimum() or maximum().
+//This mimics the behavior of the standard library for empty containers. Calling vector::front() or 
+//list::front() on an empty vector results in undefined behavior. Both collections have empty() methods.
 //Returning a zero or a default initialised value in the case of an empty set could be misleading as 
 //the same value could could occur in a non-empty set, the caller would not be able to tell the difference.
 
