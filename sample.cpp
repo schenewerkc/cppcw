@@ -136,7 +136,7 @@ double sample::median() const
 		//The number of items is even
 		auto N = _samples.size()/2;
 		//container is indexed from 0, hence N-1...
-		//dividing first to avoid overflow
+		//dividing first to avoid overflow, using generic average function.
 		average(_samples[N-1],_samples[N],median);
 	} else {
 		//The number of items is odd

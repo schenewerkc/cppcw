@@ -9,7 +9,6 @@ class sample {
 	std::vector<double> _samples;
 public:
 	//We could have forced programmers to not initialise empty sample objects by not providing the default constructor below.
-	//We could have forced programmers to not initialise empty sample objects by not providing the default constructor below
 	sample ();
 	sample (const std::vector<double>&);
 

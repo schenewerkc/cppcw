@@ -127,7 +127,6 @@ samplet<T> build_sample_t(const string &sample_str)
 
 int main () 
 {
-    
     test_fraction(fraction(1,2),fraction(1,2),fraction(1,1),fraction(0,1),fraction(1,4),fraction(1,1));
     test_sample(build_sample("< 6 :7 11 2 13 3 5>"),6,2,13,11,7.5,6,6.833333,16.1389,4.01732);
     test_sample(build_sample("<2: 1.7976931348623158e+308 1.7976931348623158e+308 >"),2,std::numeric_limits<double>::max(),std::numeric_limits<double>::max(),0,std::numeric_limits<double>::max(),std::numeric_limits<double>::max(),std::numeric_limits<double>::max(),0,0);

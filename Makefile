@@ -1,3 +1,4 @@
+#elements of this make file come from Christos Kloukinas's examle posted on moodle.
 CXX=g++
 CXXFLAGS= -Wall -pedantic -ansi -g -std=c++0x
 LDFLAGS= 
@@ -6,7 +7,7 @@ PROGS = sample_main samplet_main fraction_main unit_tests
 MAINS = $(PROGS:=.o)
 BUILD_DIR = out
 
-all: $(PROGS)
+all: test
 
 test: $(PROGS:%=%.tst)
 
